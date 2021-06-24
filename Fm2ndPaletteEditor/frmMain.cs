@@ -16,13 +16,13 @@ using System.Windows.Forms;
 
 namespace Fm2ndPaletteEditor
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         public Bitmap _bitmap { get; set; }
         public Color[] _originalPalette { get; set; }
         public Color[] _palette { get; set; }
 
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Fm2ndPaletteEditor
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         ///  Required designer variable.
