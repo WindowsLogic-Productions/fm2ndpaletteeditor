@@ -1,34 +1,61 @@
-﻿using ImageProcessor.Imaging.Quantizers;
-using Sc.Util.Rendering;
+﻿using Fm2ndPaletteEditor.Service;
+using ImageProcessor.Imaging.Quantizers;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fm2ndPaletteEditor
 {
     public partial class frmMain : Form
     {
+        public PaletteEditService Service { get; set; } = new PaletteEditService();
+
         public Bitmap _bitmap { get; set; }
-        public Color[] _originalPalette { get; set; }
+        public Color[] _bitmapOriginalPalette { get; set; }
         public Color[] _palette { get; set; }
+        public ColorChange CurrentColorChange
+        {
+            get => Service.Chain.ColorChanges[0];
+        }
+        int _currentPalette;
 
         public frmMain()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            SetDoubleBuffered(this.tableLayoutPanel1);
+
+            bsColorChangesChain.DataSource = Service.Chain;
+            bsColorChangesChain.DataMember = "ColorChanges";
         }
 
-        [DllImport("shlwapi.dll")]
-        public static extern int ColorHLSToRGB(int H, int L, int S);
+        #region .. Double Buffered function ..
+        public static void SetDoubleBuffered(System.Windows.Forms.Control c)
+        {
+            if (System.Windows.Forms.SystemInformation.TerminalServerSession)
+                return;
+            System.Reflection.PropertyInfo aProp = typeof(System.Windows.Forms.Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            aProp.SetValue(c, true, null);
+        }
+
+        #endregion
+
+
+        #region .. code for Flucuring ..
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+
+        #endregion
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -57,10 +84,11 @@ namespace Fm2ndPaletteEditor
             _bitmap = convertToIndexed(bitmap);
             pbBitmap.Image = _bitmap;
             var transpIdx = Array.FindIndex(_bitmap.Palette.Entries, x => x.ToArgb() == Color.Black.ToArgb());
+            // set alpha to transparent
             _bitmap.Palette.Entries[transpIdx] = Color.FromArgb(255, 0, 0, 0);
             _bitmap.Palette = _bitmap.Palette;
 
-            _originalPalette = (Color[])_bitmap.Palette.Entries.Clone();
+            _bitmapOriginalPalette = (Color[])_bitmap.Palette.Entries.Clone();
             applyTransformation();
         }
 
@@ -69,66 +97,20 @@ namespace Fm2ndPaletteEditor
             if (_bitmap != null)
             {
                 ColorPalette pal = _bitmap.Palette;
-                for (int i = 0; i < _originalPalette.Length; i++)
-                {
-                    pal.Entries[i] = transformColor(_originalPalette[i]);
-
-                }
-
+                var entries = pal.Entries;
+                Service.TransformPalette(entries, _bitmapOriginalPalette);
                 _bitmap.Palette = pal;
-                _palette = _bitmap.Palette.Entries;
                 this.pbBitmap.Refresh();
+            }
+            if (Service.Player != null)
+            {
+                _palette = Service.TransformPalette(Service.Player.Palettes[_currentPalette]);
                 tableLayoutPanel1.Refresh();
             }
         }
 
-        private Color transformColor(Color color)
-        {
-            var result = color;
-            if (color.ToArgb() != Color.Black.ToArgb())
-            {
-                result = Color.FromArgb(color.A,
-                minMax(color.R + tbRed.Value),
-                minMax(color.G + tbGreen.Value),
-                minMax(color.B + tbBlue.Value)
-            );
-                var hsl = SimpleColorTransforms.RgBtoHsl(result);
-                result = SimpleColorTransforms.HsLtoRgb(
-                       hsl[0] + tbH.Value,
-                       hsl[1] + ((float)tbS.Value / 255),
-                       hsl[2] + ((float)tbL.Value / 255)
-                    );
 
-                //var hsb = SimpleColorTransforms.RgBtoHsb(result);
-                //result = SimpleColorTransforms.HsBtoRgb(
-                //       hsb[0] + tbH.Value,
-                //       hsb[1] + ((float)tbS.Value / 255),
-                //       hsb[2] + ((float)tbL.Value / 255)
-                //    );
-
-
-                //var hls = ColorHLSToRGB(
-                //    minMax((int)Math.Round(result.GetHue() / 360 * 240) + tbH.Value, 240),
-                //    minMax((int)Math.Round(result.GetBrightness() * 240) + tbL.Value, 240),
-                //    minMax((int)Math.Round(result.GetSaturation() * 240) + tbS.Value, 240)
-                //);
-
-                //result = ColorTranslator.FromWin32(hls);
-            }
-            return result;
-        }
-
-        private int minMax(int v, int max = 255)
-        {
-            return Math.Max(Math.Min(v, max), 0);
-        }
-
-        private double minMax(double v, double max = 255)
-        {
-            return Math.Max(Math.Min(v, max), 0);
-        }
-
-        unsafe private Bitmap convertToIndexed(Bitmap bmp)
+        private Bitmap convertToIndexed(Bitmap bmp)
         {
             OctreeQuantizer quantizer = new OctreeQuantizer(255, 8);
 
@@ -140,86 +122,151 @@ namespace Fm2ndPaletteEditor
 
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            var idx = (e.Row * 16) + e.Column;
-            if (_bitmap != null)
+            int idx = cellToPaletteIdx(e.Row, e.Column);
+            if (_palette != null)
             {
-                var color = idx < _palette.Count() ?
-                    _bitmap.Palette.Entries[idx] :
-                    Color.Transparent;
+                var color = idx < _palette.Count() ? _palette[idx] : Color.Transparent;
                 using (SolidBrush brush = new SolidBrush(color))
                     e.Graphics.FillRectangle(brush, e.CellBounds);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private static int cellToPaletteIdx(int row, int column)
         {
-            var palette = new List<Color>();
-            var tableTxt = Clipboard.GetText();
-            using (var reader = new StringReader(tableTxt))
-            {
-                var idx = 0;
-                var buffer = new Span<char>(new char[12]);
-                var count = 0;
-                while ((count = reader.Read(buffer)) > 0)
-                {
-                    var colorTxt = new String(buffer);
-                    try
-                    {
-                        var color = parseFM2kColor(colorTxt);
-                        var newColor = transformColor(color);
-                        palette.Add(newColor);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error parsing color n.{idx} '{colorTxt}': {ex.Message}");
-                        return;
-                    }
-
-                    idx++;
-                }
-            }
-
-            using (var writer = new StringWriter())
-            {
-                foreach (var color in palette)
-                {
-                    var colorTxt = toFM2kColor(color);
-                    writer.Write(colorTxt);
-                }
-
-                Clipboard.SetText(writer.ToString());
-            }
-        }
-
-        private object toFM2kColor(Color color)
-        {
-            var r = (int)Math.Round((double)color.R / 8) * 8;
-            var g = (int)Math.Round((double)color.G / 8) * 8;
-            var b = (int)Math.Round((double)color.B / 8) * 8;
-            return $"{b.ToString("X2")} {g.ToString("X2")} {r.ToString("X2")} 01 ";
-        }
-
-
-        private Color parseFM2kColor(string colorTxt)
-        {
-            var rgba = colorTxt.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            if (rgba.Count() != 4)
-                throw new Exception("Wrong format");
-            if (rgba[3] != "01")
-                throw new Exception("No global palette");
-
-            var b = int.Parse(rgba[0], NumberStyles.HexNumber);
-            var g = int.Parse(rgba[1], NumberStyles.HexNumber);
-            var r = int.Parse(rgba[2], NumberStyles.HexNumber);
-
-            var color = Color.FromArgb(r, g, b);
-            return color;
+            return (row * 16) + column;
         }
 
         int smallChangeValue = 8;
         private void tb_Scroll(object sender, EventArgs e)
         {
+            CurrentColorChange.R = tbRed.Value;
+            CurrentColorChange.G = tbGreen.Value;
+            CurrentColorChange.B = tbBlue.Value;
+            CurrentColorChange.H = tbH.Value;
+            CurrentColorChange.L = tbL.Value;
+            CurrentColorChange.S = tbS.Value;
             applyTransformation();
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new OpenFileDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        Service.Open(dialog.FileName);
+                        applyTransformation();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        private void rbPalette1_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 0;
+            applyTransformation();
+        }
+
+        private void rbPalette2_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 1;
+            applyTransformation();
+        }
+
+        private void rbPalette3_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 2;
+            applyTransformation();
+        }
+
+        private void rbPalette4_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 3;
+            applyTransformation();
+        }
+
+        private void rbPalette5_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 4;
+            applyTransformation();
+        }
+
+        private void rbPalette6_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 5;
+            applyTransformation();
+        }
+
+        private void rbPalette7_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 6;
+            applyTransformation();
+        }
+
+        private void rbPalette8_CheckedChanged(object sender, EventArgs e)
+        {
+            _currentPalette = 7;
+            applyTransformation();
+        }
+
+        private void pnlFilterColor_Paint(object sender, PaintEventArgs e)
+        {
+            using (SolidBrush brush = new SolidBrush(CurrentColorChange.ColorFilter.Color))
+                e.Graphics.FillRectangle(brush, e.ClipRectangle);
+        }
+
+        Point? GetRowColIndex(TableLayoutPanel tlp, Point point)
+        {
+            if (point.X > tlp.Width || point.Y > tlp.Height)
+                return null;
+
+            int w = tlp.Width;
+            int h = tlp.Height;
+            int[] widths = tlp.GetColumnWidths();
+
+            int i;
+            for (i = widths.Length - 1; i >= 0 && point.X < w; i--)
+                w -= widths[i];
+            int col = i + 1;
+
+            int[] heights = tlp.GetRowHeights();
+            for (i = heights.Length - 1; i >= 0 && point.Y < h; i--)
+                h -= heights[i];
+
+            int row = i + 1;
+
+            return new Point(col, row);
+        }
+
+        private void tableLayoutPanel1_Click(object sender, EventArgs e)
+        {
+            var cellPos = GetRowColIndex(
+                tableLayoutPanel1,
+                tableLayoutPanel1.PointToClient(Cursor.Position));
+            if (cellPos.HasValue)
+            {
+                var idx = cellToPaletteIdx(cellPos.Value.Y, cellPos.Value.X);
+                CurrentColorChange.ColorFilter.Color = Service.Player.Palettes[0][idx];
+                applyTransformation();
+                pnlFilterColor.Refresh();
+            }
+        }
+
+        private void tbColorFilterFuzziness_Scroll(object sender, EventArgs e)
+        {
+            CurrentColorChange.ColorFilter.Fuzziness = (double)tbColorFilterFuzziness.Value / 1000;
+            applyTransformation();
+        }
+
+        private void cbColorFilterEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            CurrentColorChange.ColorFilter.Enabled = cbColorFilterEnabled.Checked;
         }
     }
 }
