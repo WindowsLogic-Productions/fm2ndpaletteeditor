@@ -7,5 +7,6 @@ namespace Fm2ndPaletteEditor.Service
         public bool Enabled { get; set; } = false;
         public Color Color { get; set; } = Color.Black;
         public double Fuzziness { get; set; } = 0;
+        public double M { get; set; } = 0;
     }
 }

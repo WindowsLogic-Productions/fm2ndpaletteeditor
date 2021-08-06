@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Fm2ndPaletteEditor.Service
 {
-   public class ColorChange
+    public class ColorChange
     {
         public int Idx { get; set; }
         public ColorFilter ColorFilter { get; set; } = new ColorFilter();
@@ -14,5 +15,6 @@ namespace Fm2ndPaletteEditor.Service
         public int H { get; set; }
         public int S { get; set; }
         public int L { get; set; }
+        public bool Enabled { get; set; }
     }
 }

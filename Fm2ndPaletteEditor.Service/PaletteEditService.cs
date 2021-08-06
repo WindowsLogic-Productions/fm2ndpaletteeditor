@@ -4,6 +4,7 @@ using Sc.Util.Rendering;
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace Fm2ndPaletteEditor.Service
 {
@@ -23,48 +24,67 @@ namespace Fm2ndPaletteEditor.Service
 
         public Color ApplyColorChange(Color color, ColorChange change)
         {
-            var multiplier = change.ColorFilter.Enabled ? calculateMultiplier(color, change.ColorFilter) : 1;
-
             var result = color;
-            if (color.ToArgb() != Color.Black.ToArgb())
+            if (change.Enabled && color.A == 255)
             {
-                result = Color.FromArgb(color.A,
-                    changeValueToInt(color.R, change.R, multiplier),
-                    changeValueToInt(color.G, change.G, multiplier),
-                    changeValueToInt(color.B, change.B, multiplier)
-                );
+                var multiplier = change.ColorFilter.Enabled ? calculateMultiplier(color, change.ColorFilter) : 1;
 
-                var hsl = SimpleColorTransforms.RgBtoHsl(result);
-                result = SimpleColorTransforms.HsLtoRgb(
-                       changeValue(hsl[0], (float)change.H * (double)(360 / 255), multiplier),
-                       changeValue(hsl[1], (float)change.S / 255, multiplier),
-                       changeValue(hsl[2], (float)change.L / 255, multiplier)
-                    );
+                // black i meant to be transparent
+                if (color.ToArgb() != Color.Black.ToArgb())
+                {
 
-                //var hsb = SimpleColorTransforms.RgBtoHsb(result);
-                //result = SimpleColorTransforms.HsBtoRgb(
-                //       hsb[0] + tbH.Value,
-                //       hsb[1] + ((float)tbS.Value / 255),
-                //       hsb[2] + ((float)tbL.Value / 255)
-                //    );
+                    result = sumColors(color, change, multiplier);
+                    //result = Blend(color, change, multiplier);
+
+                    result = sumHsl(result, change, multiplier);
+
+                    //var hsb = SimpleColorTransforms.RgBtoHsb(result);
+                    //result = SimpleColorTransforms.HsBtoRgb(
+                    //       hsb[0] + tbH.Value,
+                    //       hsb[1] + ((float)tbS.Value / 255),
+                    //       hsb[2] + ((float)tbL.Value / 255)
+                    //    );
 
 
-                //var hls = ColorHLSToRGB(
-                //    minMax((int)Math.Round(result.GetHue() / 360 * 240) + tbH.Value, 240),
-                //    minMax((int)Math.Round(result.GetBrightness() * 240) + tbL.Value, 240),
-                //    minMax((int)Math.Round(result.GetSaturation() * 240) + tbS.Value, 240)
-                //);
+                    //var hls = ColorHLSToRGB(
+                    //    minMax((int)Math.Round(result.GetHue() / 360 * 240) + tbH.Value, 240),
+                    //    minMax((int)Math.Round(result.GetBrightness() * 240) + tbL.Value, 240),
+                    //    minMax((int)Math.Round(result.GetSaturation() * 240) + tbS.Value, 240)
+                    //);
 
-                //result = ColorTranslator.FromWin32(hls);
+                    //result = ColorTranslator.FromWin32(hls);
+                }
+
             }
+            return result;
+        }
+
+        private Color BlendHsl(Color color1, ColorChange color2, double multiplier)
+        {
+            var hsl = SimpleColorTransforms.RgBtoHsl(color1);
+            var result = SimpleColorTransforms.HsLtoRgb(
+                BlendColorComponent(hsl[0], (float)color2.H, multiplier),
+                BlendColorComponent(hsl[1], (float)color2.S, multiplier),
+                BlendColorComponent(hsl[2], (float)color2.L, multiplier)
+            );
             return result;
         }
 
         private double calculateMultiplier(Color color, ColorFilter filter)
         {
-            var closiness = 1 - distance(filter.Color, color);
-            var fuzziness = filter.Fuzziness / 1000;
-            var result = Math.Pow(closiness, (1 - fuzziness) * 100);
+            // y=1-m(x-f)
+            var d = distance(filter.Color, color);
+            var f = filter.Fuzziness / 1000;
+            var m = 1000 - (filter.M / 10);
+
+            var result = 1 - (m * (d - f));
+            result = minMax(result, 1);
+            return result;
+        }
+
+        public Color[][] TransformPalettes(Color[][] palette)
+        {
+            var result = palette.Select(x => TransformPalette(x)).ToArray();
             return result;
         }
 
@@ -75,14 +95,81 @@ namespace Fm2ndPaletteEditor.Service
             return result;
         }
 
+        #region color modification
+        private Color sumColors(Color color, ColorChange change, double multiplier)
+        {
+            return Color.FromArgb(color.A,
+                                    changeValueToInt(color.R, change.R, multiplier),
+                                    changeValueToInt(color.G, change.G, multiplier),
+                                    changeValueToInt(color.B, change.B, multiplier)
+                                );
+        }
+        private Color sumHsl(Color color1, ColorChange color2, double multiplier)
+        {
+            var hsl = SimpleColorTransforms.RgBtoHsl(color1);
+            var result = SimpleColorTransforms.HsLtoRgb(
+                changeValue(hsl[0], (float)color2.H, multiplier, 360, true),
+                changeValue(hsl[1], (float)color2.S / 256, multiplier, 255),
+                changeValue(hsl[2], (float)color2.L / 256, multiplier, 255)
+            );
+            return result;
+        }
+
+        //result = SimpleColorTransforms.HsBtoRgb(
+        //       hsb[0] + tbH.Value,
+        //       hsb[1] + ((float)tbS.Value / 255),
+        //       hsb[2] + ((float)tbL.Value / 255)
+        //    );
+
+
+        //var hls = ColorHLSToRGB(
+        //    minMax((int)Math.Round(result.GetHue() / 360 * 240) + tbH.Value, 240),
+        //    minMax((int)Math.Round(result.GetBrightness() * 240) + tbL.Value, 240),
+        //    minMax((int)Math.Round(result.GetSaturation() * 240) + tbS.Value, 240)
+        //);
+
+        //result = ColorTranslator.FromWin32(hls);
+
+
+        /// <summary>Blends the specified colors together.</summary>
+        /// <param name="color">Color to blend onto the background color.</param>
+        /// <param name="backColor">Color to blend the other color onto.</param>
+        /// <param name="amount">How much of <paramref name="color"/> to keep,
+        /// “on top of” <paramref name="backColor"/>.</param>
+        /// <returns>The blended colors.</returns>
+        public Color Blend(Color color, ColorChange backColor, double amount)
+        {
+            var r = (int)BlendColorComponent(color.R, backColor.R, amount);
+            var g = (int)BlendColorComponent(color.G, backColor.G, amount);
+            var b = (int)BlendColorComponent(color.B, backColor.B, amount);
+            return Color.FromArgb(r, g, b);
+        }
+
+        private double BlendColorComponent(double a, double b, double amount)
+        {
+            return minMax((a * amount) + b * (1 - amount));
+        }
+
+        private double changeValue(double value, double change, double multiplier, double max, bool warp = false)
+        {
+            var result = changeValue(value, change, multiplier);
+            if (warp)
+                return (result + max) % max;
+            else
+                return minMax(result, max);
+        }
+
         private double changeValue(double value, double change, double multiplier)
         {
-            return minMax(value + (change * multiplier));
+            return value + (change * multiplier);
         }
+
         private int changeValueToInt(double value, double change, double multiplier)
         {
-            return (int)Math.Round(changeValue(value, change, multiplier));
+            return (int)Math.Round(minMax(changeValue(value, change, multiplier)));
         }
+
+        #endregion
 
         double distance(Color c1, Color c2)
         {
@@ -111,9 +198,9 @@ namespace Fm2ndPaletteEditor.Service
             return Math.Max(Math.Min(v, max), 0);
         }
 
-        private double minMax(double v, double max = 255)
+        private double minMax(double v, double max = 255, double min = 0)
         {
-            return Math.Max(Math.Min(v, max), 0);
+            return Math.Max(Math.Min(v, max), min);
         }
 
         internal void Save()

@@ -101,13 +101,12 @@ namespace Fm2ndPaletteEditor
                 var entries = pal.Entries;
                 Service.TransformPalette(entries, _bitmapOriginalPalette);
                 _bitmap.Palette = pal;
-                this.pbBitmap.Refresh();
             }
             if (Service.Player != null)
             {
                 _palette = Service.TransformPalette(Service.Player.Palettes[_currentPalette]);
-                tableLayoutPanel1.Refresh();
             }
+            this.Refresh();
         }
 
 
@@ -127,8 +126,22 @@ namespace Fm2ndPaletteEditor
             if (_palette != null)
             {
                 var color = idx < _palette.Count() ? _palette[idx] : Color.Transparent;
-                using (SolidBrush brush = new SolidBrush(color))
-                    e.Graphics.FillRectangle(brush, e.CellBounds);
+                if (color.A == 255)
+                {
+                    using (SolidBrush brush = new SolidBrush(color))
+                        e.Graphics.FillRectangle(brush, e.CellBounds);
+                }
+                else
+                {
+                    using (SolidBrush brush = new SolidBrush(Color.Black))
+                    {
+                        var x = e.CellBounds.Left + (e.CellBounds.Width / 2);
+                        var y = e.CellBounds.Top + (e.CellBounds.Height / 2);
+                        var rectangle = new Rectangle(new Point(x - 1, y - 1), new Size(2, 2));
+
+                        e.Graphics.FillEllipse(brush, rectangle);
+                    }
+                }
             }
         }
 
@@ -136,6 +149,30 @@ namespace Fm2ndPaletteEditor
         {
             return (row * 16) + column;
         }
+
+        object _inDoubleClick;
+        DateTime _lastClick;
+        TimeSpan _doubleClickMaxTime = TimeSpan.FromMilliseconds(SystemInformation.DoubleClickTime);
+        //private void tb_MouseDown(object sender, MouseEventArgs e)
+        //{
+        //    if (_inDoubleClick == sender)
+        //    {
+        //        _inDoubleClick = false;
+
+        //        TimeSpan length = DateTime.Now - _lastClick;
+
+        //        // If double click is valid, respond
+        //        if (length < _doubleClickMaxTime)
+        //        {
+        //            _doubleClickAction();
+        //        }
+
+        //        return;
+        //    }
+
+        //    _lastClick = DateTime.Now;
+        //    _inDoubleClick = sender;
+        //}
 
         private void tb_Scroll(object sender, EventArgs e)
         {
@@ -154,10 +191,34 @@ namespace Fm2ndPaletteEditor
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
+                    dialog.Filter = "Player|*.player";
+                    dialog.Title = "Open Player";
                     try
                     {
                         Service.Open(dialog.FileName);
                         applyTransformation();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "Player|*.player";
+                dialog.Title = "Save Player";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        var palettes = Service.TransformPalettes(Service.Player.Palettes);
+                        Service.Player.SavePalettes(dialog.FileName, palettes);
                     }
                     catch (Exception ex)
                     {
@@ -248,26 +309,31 @@ namespace Fm2ndPaletteEditor
 
         private void tableLayoutPanel1_Click(object sender, EventArgs e)
         {
-            var cellPos = GetRowColIndex(
-                tableLayoutPanel1,
-                tableLayoutPanel1.PointToClient(Cursor.Position));
-            if (cellPos.HasValue)
+            if (Service.Player != null)
             {
-                var idx = cellToPaletteIdx(cellPos.Value.Y, cellPos.Value.X);
-                CurrentColorChange.ColorFilter.Color = Service.Player.Palettes[0][idx];
-                applyTransformation();
-                pnlFilterColor.Refresh();
+                var cellPos = GetRowColIndex(
+                    tableLayoutPanel1,
+                    tableLayoutPanel1.PointToClient(Cursor.Position));
+                if (cellPos.HasValue)
+                {
+                    var idx = cellToPaletteIdx(cellPos.Value.Y, cellPos.Value.X);
+                    CurrentColorChange.ColorFilter.Color = Service.Player.Palettes[0][idx];
+                    applyTransformation();
+                }
             }
         }
 
         private void tbColorFilterFuzziness_Scroll(object sender, EventArgs e)
         {
+            CurrentColorChange.ColorFilter.Fuzziness = tbColorFilterFuzziness.Value;
+            CurrentColorChange.ColorFilter.M = tbM.Value;
             applyTransformation();
         }
 
         private void cbColorFilterEnabled_CheckedChanged(object sender, EventArgs e)
         {
             CurrentColorChange.ColorFilter.Enabled = cbColorFilterEnabled.Checked;
+            applyTransformation();
         }
 
         private void btnAddColorChange_Click(object sender, EventArgs e)
@@ -275,6 +341,38 @@ namespace Fm2ndPaletteEditor
             this.Service.Chain.ColorChanges.Add(new ColorChange());
             lstChain.DataSource = Service.Chain.ColorChanges;
             applyTransformation();
+        }
+
+        private void lstChain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbRed.Value = CurrentColorChange.R;
+            tbGreen.Value = CurrentColorChange.G;
+            tbBlue.Value = CurrentColorChange.B;
+            tbH.Value = CurrentColorChange.H;
+            tbL.Value = CurrentColorChange.L;
+            tbS.Value = CurrentColorChange.S;
+
+            cbColorFilterEnabled.Checked = CurrentColorChange.ColorFilter.Enabled;
+            tbColorFilterFuzziness.Value = (int)CurrentColorChange.ColorFilter.Fuzziness;
+            cbColorChangeEnabled.Checked = CurrentColorChange.Enabled;
+            applyTransformation();
+        }
+
+        private void cbColorChangeEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            CurrentColorChange.Enabled = cbColorChangeEnabled.Checked;
+            applyTransformation();
+        }
+
+        private void btnColorChangeReset_Click(object sender, EventArgs e)
+        {            
+            tbH.Value = 0;
+            tbS.Value = 0;
+            tbL.Value = 0;
+            tbRed.Value = 0;
+            tbGreen.Value = 0;
+            tbBlue.Value = 0;
+            tb_Scroll(sender, e);
         }
     }
 }

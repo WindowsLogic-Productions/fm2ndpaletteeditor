@@ -60,21 +60,8 @@ namespace Fm2ndPaletteEditor.Service
 
         private int[] readPalettesPositions(byte[] data)
         {
-            // create patter: 32 zeros 256 ***1
-            var patternList = new List<byte?>();
-            for (int i = 0; i < 32; i++)
-                patternList.Add(0);
-            for (int i = 0; i < 256; i++)
-            {
-                patternList.Add(null);
-                patternList.Add(null);
-                patternList.Add(null);
-                patternList.Add(1);
-            }
+            var positions = data.Locate();
 
-            var pattern = patternList.ToArray();
-
-            var positions = data.Locate(pattern);
             if (positions.Count() != 8)
             {
                 throw new Exception("No correct palette format found");
@@ -84,17 +71,40 @@ namespace Fm2ndPaletteEditor.Service
 
         public void SavePalettes(string filename, Color[][] palettes)
         {
+            _stream.Position = 0;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                _stream.CopyTo(ms);
+                _stream.Position = 0;
+
+                var positions = readPalettesPositions(ms.ToArray());
+
+                ms.Position = 0;
+
+                for (int i = 1; i < palettes.Length; i++)
+                {
+                    savePalette(ms, palettes[i], positions[i]);
+                }
+                File.WriteAllBytes(filename, ms.ToArray());
+            }
+        }
+
+        public void SavePalettes(string filename, Color[] palette, int number)
+        {
             var data = File.ReadAllBytes(filename);
             var positions = readPalettesPositions(data);
             using (var stream = File.OpenWrite(filename))
             {
-                for (int i = 0; i < palettes.Length; i++)
-                {
-                    stream.Position = positions[i];
-                    var palette = toFM2kPalette(palettes[i]);
-                    stream.Write(palette, 0, palette.Length);
-                }
+                savePalette(stream, palette, positions[number]);
             }
+        }
+
+        private void savePalette(Stream stream, Color[] palette, long position)
+        {
+            stream.Position = position;
+            var paletteBytes = toFM2kPalette(palette);
+            stream.Write(paletteBytes, 0, palette.Length);
         }
 
         private byte[] toFM2kPalette(Color[] colors)
@@ -121,23 +131,26 @@ namespace Fm2ndPaletteEditor.Service
 
         private Color parseFM2kColor(byte[] color)
         {
-            if (color.Count() != 4)
+            if (color.Count() != 4 && color[3] != 1 && color[3] != 0)
                 throw new Exception("Wrong format");
-            if (color[3] != 1)
-                throw new Exception("No global palette");
 
             var b = color[0];
             var g = color[1];
             var r = color[2];
 
-            var result = Color.FromArgb(r, g, b);
+            if (r % 8 != 0 || g % 8 != 0 || b % 8 != 0)
+                throw new Exception("Wrong format");
+
+            var a = color[3] == 0 ? 0 : 255;
+
+            var result = Color.FromArgb(a, r, g, b);
             return result;
         }
 
         private Color parseFM2kColor(string colorTxt)
         {
             var rgba = colorTxt
-                .Split(new []{ ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => byte.Parse(x, NumberStyles.HexNumber))
                 .ToArray();
 
