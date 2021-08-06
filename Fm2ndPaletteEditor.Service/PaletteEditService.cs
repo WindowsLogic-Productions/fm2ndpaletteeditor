@@ -1,14 +1,8 @@
 ﻿using ColorMine.ColorSpaces;
 using ColorMine.ColorSpaces.Comparisons;
-using ImageProcessor;
 using Sc.Util.Rendering;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Fm2ndPaletteEditor.Service
@@ -22,7 +16,7 @@ namespace Fm2ndPaletteEditor.Service
         public ColorChangeChain Chain { get; set; } = new ColorChangeChain();
         public Player Player { get; private set; }
 
-        internal void Open(string fileName)
+        public void Open(string fileName)
         {
             Player = new Player(fileName);
         }
@@ -69,7 +63,8 @@ namespace Fm2ndPaletteEditor.Service
         private double calculateMultiplier(Color color, ColorFilter filter)
         {
             var closiness = 1 - distance(filter.Color, color);
-            var result = Math.Pow(closiness, (1 - filter.Fuzziness) * 100);
+            var fuzziness = filter.Fuzziness / 1000;
+            var result = Math.Pow(closiness, (1 - fuzziness) * 100);
             return result;
         }
 
@@ -98,14 +93,16 @@ namespace Fm2ndPaletteEditor.Service
             return deltaE / 255;
         }
 
-        internal void TransformPalette(Color[] targetPalette, Color[] originalPalette)
+        public void TransformPalette(Color[] targetPalette, Color[] originalPalette)
         {
             for (int i = 0; i < originalPalette.Length; i++)
             {
+                var newColor = originalPalette[i];
                 foreach (var colorChange in Chain.ColorChanges)
                 {
-                    targetPalette[i] = this.ApplyColorChange(originalPalette[i], colorChange);
+                    newColor = this.ApplyColorChange(newColor, colorChange);
                 }
+                targetPalette[i] = newColor;
             }
         }
 

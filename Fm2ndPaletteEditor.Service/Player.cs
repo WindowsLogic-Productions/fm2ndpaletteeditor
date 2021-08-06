@@ -137,7 +137,7 @@ namespace Fm2ndPaletteEditor.Service
         private Color parseFM2kColor(string colorTxt)
         {
             var rgba = colorTxt
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Split(new []{ ' ' }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => byte.Parse(x, NumberStyles.HexNumber))
                 .ToArray();
 

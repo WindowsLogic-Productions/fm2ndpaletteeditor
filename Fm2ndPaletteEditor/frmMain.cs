@@ -17,7 +17,7 @@ namespace Fm2ndPaletteEditor
         public Color[] _palette { get; set; }
         public ColorChange CurrentColorChange
         {
-            get => Service.Chain.ColorChanges[0];
+            get => (ColorChange)lstChain.SelectedItem;
         }
         int _currentPalette;
 
@@ -27,8 +27,9 @@ namespace Fm2ndPaletteEditor
             this.DoubleBuffered = true;
             SetDoubleBuffered(this.tableLayoutPanel1);
 
-            bsColorChangesChain.DataSource = Service.Chain;
-            bsColorChangesChain.DataMember = "ColorChanges";
+            lstChain.DataSource = Service.Chain.ColorChanges;
+            lstChain.DisplayMember = "Idx";
+            lstChain.SelectedItem = Service.Chain.ColorChanges[0];
         }
 
         #region .. Double Buffered function ..
@@ -136,7 +137,6 @@ namespace Fm2ndPaletteEditor
             return (row * 16) + column;
         }
 
-        int smallChangeValue = 8;
         private void tb_Scroll(object sender, EventArgs e)
         {
             CurrentColorChange.R = tbRed.Value;
@@ -167,6 +167,7 @@ namespace Fm2ndPaletteEditor
             }
         }
 
+        #region palette radio buttons
         private void rbPalette1_CheckedChanged(object sender, EventArgs e)
         {
             _currentPalette = 0;
@@ -220,6 +221,7 @@ namespace Fm2ndPaletteEditor
             using (SolidBrush brush = new SolidBrush(CurrentColorChange.ColorFilter.Color))
                 e.Graphics.FillRectangle(brush, e.ClipRectangle);
         }
+        #endregion
 
         Point? GetRowColIndex(TableLayoutPanel tlp, Point point)
         {
@@ -260,13 +262,19 @@ namespace Fm2ndPaletteEditor
 
         private void tbColorFilterFuzziness_Scroll(object sender, EventArgs e)
         {
-            CurrentColorChange.ColorFilter.Fuzziness = (double)tbColorFilterFuzziness.Value / 1000;
             applyTransformation();
         }
 
         private void cbColorFilterEnabled_CheckedChanged(object sender, EventArgs e)
         {
             CurrentColorChange.ColorFilter.Enabled = cbColorFilterEnabled.Checked;
+        }
+
+        private void btnAddColorChange_Click(object sender, EventArgs e)
+        {
+            this.Service.Chain.ColorChanges.Add(new ColorChange());
+            lstChain.DataSource = Service.Chain.ColorChanges;
+            applyTransformation();
         }
     }
 }

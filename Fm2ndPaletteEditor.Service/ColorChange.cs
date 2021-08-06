@@ -1,5 +1,4 @@
-﻿using ImageProcessor.Processors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,6 +6,7 @@ namespace Fm2ndPaletteEditor.Service
 {
    public class ColorChange
     {
+        public int Idx { get; set; }
         public ColorFilter ColorFilter { get; set; } = new ColorFilter();
         public int R { get; set; }
         public int G { get; set; }
