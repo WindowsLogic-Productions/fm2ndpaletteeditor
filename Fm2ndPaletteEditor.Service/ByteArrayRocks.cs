@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Fm2ndPaletteEditor.Service
 {
@@ -12,28 +13,25 @@ namespace Fm2ndPaletteEditor.Service
         {
             var list = new List<int>();
 
-            var patternListGroups = new List<List<byte?>>();
+            var patternListGroups = new List<byte?[]>();
             var patternList = new List<byte?>();
             for (int i = 0; i < 32; i++)
                 patternList.Add(0);
-            patternListGroups.Add(patternList);
-
-            patternList = new List<byte?> { 0, 0, 0, 1 };
-            patternListGroups.Add(patternList);
+            patternListGroups.Add(patternList.ToArray());
 
             patternList = new List<byte?>();
             patternList.Add(null);
             patternList.Add(null);
             patternList.Add(null);
             patternList.Add(1);
-            patternListGroups.Add(patternList);
+            patternListGroups.Add(patternList.ToArray());
 
             patternList = new List<byte?>();
             patternList.Add(0);
             patternList.Add(0);
             patternList.Add(0);
             patternList.Add(0);
-            patternListGroups.Add(patternList);
+            patternListGroups.Add(patternList.ToArray());
 
             var next = false;
 
@@ -46,38 +44,40 @@ namespace Fm2ndPaletteEditor.Service
                 next = false;
 
                 var np = p;
-                if (!IsMatch(self, np, patternListGroups[0].ToArray()))
+                if (!IsMatch(self, np, patternListGroups[0]))
                     continue;
-                np += patternListGroups[0].Count;
-
-                if (!IsMatch(self, np, patternListGroups[1].ToArray()))
-                    continue;
-                np += patternListGroups[1].Count;
+                np += patternListGroups[0].Length;
 
                 int colorCount;
-                for (colorCount = 0; colorCount < 255; colorCount++)
+                for (colorCount = 0; colorCount < 256; colorCount++)
                 {
-                    if (!IsMatch(self, np, patternListGroups[2].ToArray()))
+                    if (!IsMatch(self, np, patternListGroups[1]))
                     {
-                        np += patternListGroups[2].Count;
                         break;
                     }
-                    np += patternListGroups[2].Count;
+                    np += patternListGroups[1].Length;
                 }
-                for (; colorCount < 255; colorCount++)
+                if (colorCount > 0)
                 {
-                    if (!IsMatch(self, np, patternListGroups[3].ToArray()))
+                    for (; colorCount < 256; colorCount++)
                     {
-                        next = true;
-                        break;
+                        if (!IsMatch(self, np, patternListGroups[2]))
+                        {
+                            next = true;
+                            np += patternListGroups[2].Length;
+                            break;
+                        }
+                        np += patternListGroups[2].Length;
                     }
-                    np += patternListGroups[3].Count;
-                }
 
-                if (!next)
-                    list.Add(p);
-                if (list.Count == 8)
-                    break;
+                    if (!next)
+                    {
+                        list.Add(p);
+                        if (list.Count == 8)
+                            break;
+                        p = np - 1;
+                    }
+                }
             }
 
             return list.Count == 0 ? Empty : list.ToArray();

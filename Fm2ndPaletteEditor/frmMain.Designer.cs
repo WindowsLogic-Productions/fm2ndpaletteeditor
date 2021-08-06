@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.pbBitmap = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpResultPalette = new System.Windows.Forms.TableLayoutPanel();
             this.tbRed = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.tbGreen = new System.Windows.Forms.TrackBar();
@@ -64,9 +64,12 @@
             this.tbM = new System.Windows.Forms.TrackBar();
             this.lblFuzziness = new System.Windows.Forms.Label();
             this.lstChain = new System.Windows.Forms.ListBox();
-            this.btnAddColorChange = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblModifications = new System.Windows.Forms.Label();
+            this.lblSourcePalette = new System.Windows.Forms.Label();
+            this.tlpSourcePalette = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbTargetPalette = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbBitmap)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGreen)).BeginInit();
@@ -82,61 +85,58 @@
             // 
             // pbBitmap
             // 
-            this.pbBitmap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.pbBitmap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbBitmap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pbBitmap.Location = new System.Drawing.Point(10, 10);
             this.pbBitmap.Name = "pbBitmap";
-            this.pbBitmap.Size = new System.Drawing.Size(292, 296);
+            this.pbBitmap.Size = new System.Drawing.Size(292, 291);
             this.pbBitmap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbBitmap.TabIndex = 0;
             this.pbBitmap.TabStop = false;
             this.pbBitmap.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // tableLayoutPanel1
+            // tlpResultPalette
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 16;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(657, 10);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 16;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(274, 277);
-            this.tableLayoutPanel1.TabIndex = 1;
-            this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
-            this.tableLayoutPanel1.Click += new System.EventHandler(this.tableLayoutPanel1_Click);
+            this.tlpResultPalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpResultPalette.ColumnCount = 16;
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tlpResultPalette.Location = new System.Drawing.Point(657, 356);
+            this.tlpResultPalette.Name = "tlpResultPalette";
+            this.tlpResultPalette.RowCount = 16;
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpResultPalette.Size = new System.Drawing.Size(274, 277);
+            this.tlpResultPalette.TabIndex = 1;
+            this.tlpResultPalette.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tlpResultPalette_CellPaint);
             // 
             // tbRed
             // 
@@ -341,7 +341,7 @@
             this.rbPalette1.AutoSize = true;
             this.rbPalette1.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
             this.rbPalette1.Checked = true;
-            this.rbPalette1.Location = new System.Drawing.Point(668, 293);
+            this.rbPalette1.Location = new System.Drawing.Point(668, 24);
             this.rbPalette1.Name = "rbPalette1";
             this.rbPalette1.Size = new System.Drawing.Size(17, 30);
             this.rbPalette1.TabIndex = 10;
@@ -354,7 +354,7 @@
             // 
             this.rbPalette2.AutoSize = true;
             this.rbPalette2.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette2.Location = new System.Drawing.Point(702, 293);
+            this.rbPalette2.Location = new System.Drawing.Point(702, 24);
             this.rbPalette2.Name = "rbPalette2";
             this.rbPalette2.Size = new System.Drawing.Size(17, 30);
             this.rbPalette2.TabIndex = 10;
@@ -366,7 +366,7 @@
             // 
             this.rbPalette3.AutoSize = true;
             this.rbPalette3.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette3.Location = new System.Drawing.Point(736, 293);
+            this.rbPalette3.Location = new System.Drawing.Point(736, 24);
             this.rbPalette3.Name = "rbPalette3";
             this.rbPalette3.Size = new System.Drawing.Size(17, 30);
             this.rbPalette3.TabIndex = 10;
@@ -378,7 +378,7 @@
             // 
             this.rbPalette4.AutoSize = true;
             this.rbPalette4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette4.Location = new System.Drawing.Point(771, 293);
+            this.rbPalette4.Location = new System.Drawing.Point(771, 24);
             this.rbPalette4.Name = "rbPalette4";
             this.rbPalette4.Size = new System.Drawing.Size(17, 30);
             this.rbPalette4.TabIndex = 10;
@@ -390,7 +390,7 @@
             // 
             this.rbPalette5.AutoSize = true;
             this.rbPalette5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette5.Location = new System.Drawing.Point(805, 293);
+            this.rbPalette5.Location = new System.Drawing.Point(805, 24);
             this.rbPalette5.Name = "rbPalette5";
             this.rbPalette5.Size = new System.Drawing.Size(17, 30);
             this.rbPalette5.TabIndex = 10;
@@ -402,7 +402,7 @@
             // 
             this.rbPalette6.AutoSize = true;
             this.rbPalette6.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette6.Location = new System.Drawing.Point(839, 293);
+            this.rbPalette6.Location = new System.Drawing.Point(839, 24);
             this.rbPalette6.Name = "rbPalette6";
             this.rbPalette6.Size = new System.Drawing.Size(17, 30);
             this.rbPalette6.TabIndex = 10;
@@ -414,7 +414,7 @@
             // 
             this.rbPalette7.AutoSize = true;
             this.rbPalette7.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette7.Location = new System.Drawing.Point(873, 293);
+            this.rbPalette7.Location = new System.Drawing.Point(873, 24);
             this.rbPalette7.Name = "rbPalette7";
             this.rbPalette7.Size = new System.Drawing.Size(17, 30);
             this.rbPalette7.TabIndex = 10;
@@ -426,7 +426,7 @@
             // 
             this.rbPalette8.AutoSize = true;
             this.rbPalette8.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette8.Location = new System.Drawing.Point(908, 293);
+            this.rbPalette8.Location = new System.Drawing.Point(908, 24);
             this.rbPalette8.Name = "rbPalette8";
             this.rbPalette8.Size = new System.Drawing.Size(17, 30);
             this.rbPalette8.TabIndex = 10;
@@ -436,7 +436,7 @@
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(844, 584);
+            this.btnOpen.Location = new System.Drawing.Point(12, 713);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(87, 20);
             this.btnOpen.TabIndex = 11;
@@ -455,7 +455,7 @@
             this.gbColorFilter.Controls.Add(this.lblFuzziness);
             this.gbColorFilter.Location = new System.Drawing.Point(10, 333);
             this.gbColorFilter.Name = "gbColorFilter";
-            this.gbColorFilter.Size = new System.Drawing.Size(291, 260);
+            this.gbColorFilter.Size = new System.Drawing.Size(291, 297);
             this.gbColorFilter.TabIndex = 8;
             this.gbColorFilter.TabStop = false;
             this.gbColorFilter.Text = "Filter";
@@ -540,28 +540,18 @@
             this.lstChain.FormattingEnabled = true;
             this.lstChain.Location = new System.Drawing.Point(307, 24);
             this.lstChain.Name = "lstChain";
-            this.lstChain.Size = new System.Drawing.Size(346, 251);
+            this.lstChain.Size = new System.Drawing.Size(346, 277);
             this.lstChain.TabIndex = 12;
             this.lstChain.SelectedIndexChanged += new System.EventHandler(this.lstChain_SelectedIndexChanged);
             // 
-            // btnAddColorChange
-            // 
-            this.btnAddColorChange.Location = new System.Drawing.Point(308, 285);
-            this.btnAddColorChange.Name = "btnAddColorChange";
-            this.btnAddColorChange.Size = new System.Drawing.Size(64, 20);
-            this.btnAddColorChange.TabIndex = 13;
-            this.btnAddColorChange.Text = "Add";
-            this.btnAddColorChange.UseVisualStyleBackColor = true;
-            this.btnAddColorChange.Click += new System.EventHandler(this.btnAddColorChange_Click);
-            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(844, 610);
+            this.btnSave.Location = new System.Drawing.Point(719, 713);
             this.btnSave.Name = "btnSave";
             this.btnSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnSave.Size = new System.Drawing.Size(87, 20);
             this.btnSave.TabIndex = 14;
-            this.btnSave.Text = "Save Player";
+            this.btnSave.Text = "Save to";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -574,16 +564,99 @@
             this.lblModifications.TabIndex = 15;
             this.lblModifications.Text = "Modifications";
             // 
+            // lblSourcePalette
+            // 
+            this.lblSourcePalette.AutoSize = true;
+            this.lblSourcePalette.Location = new System.Drawing.Point(654, 8);
+            this.lblSourcePalette.Name = "lblSourcePalette";
+            this.lblSourcePalette.Size = new System.Drawing.Size(77, 13);
+            this.lblSourcePalette.TabIndex = 15;
+            this.lblSourcePalette.Text = "Source Palette";
+            // 
+            // tlpSourcePalette
+            // 
+            this.tlpSourcePalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpSourcePalette.ColumnCount = 16;
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 19F));
+            this.tlpSourcePalette.Location = new System.Drawing.Point(659, 60);
+            this.tlpSourcePalette.Name = "tlpSourcePalette";
+            this.tlpSourcePalette.RowCount = 16;
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tlpSourcePalette.Size = new System.Drawing.Size(274, 277);
+            this.tlpSourcePalette.TabIndex = 1;
+            this.tlpSourcePalette.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tlpSourcePalette_CellPaint);
+            this.tlpSourcePalette.Click += new System.EventHandler(this.tlpSourcePalette_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(654, 340);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(73, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Result Palette";
+            // 
+            // cbTargetPalette
+            // 
+            this.cbTargetPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTargetPalette.FormattingEnabled = true;
+            this.cbTargetPalette.Items.AddRange(new object[] {
+            "Palette 1",
+            "Palette 2",
+            "Palette 3",
+            "Palette 4",
+            "Palette 5",
+            "Palette 6",
+            "Palette 7",
+            "Palette 8"});
+            this.cbTargetPalette.Location = new System.Drawing.Point(812, 712);
+            this.cbTargetPalette.Name = "cbTargetPalette";
+            this.cbTargetPalette.Size = new System.Drawing.Size(121, 21);
+            this.cbTargetPalette.TabIndex = 16;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(942, 642);
+            this.ClientSize = new System.Drawing.Size(942, 745);
+            this.Controls.Add(this.cbTargetPalette);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblSourcePalette);
             this.Controls.Add(this.lblModifications);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnAddColorChange);
             this.Controls.Add(this.lstChain);
             this.Controls.Add(this.btnOpen);
+            this.Controls.Add(this.tlpSourcePalette);
             this.Controls.Add(this.rbPalette8);
             this.Controls.Add(this.rbPalette7);
             this.Controls.Add(this.rbPalette6);
@@ -594,7 +667,7 @@
             this.Controls.Add(this.rbPalette1);
             this.Controls.Add(this.gbColorFilter);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.tlpResultPalette);
             this.Controls.Add(this.lblImageHint);
             this.Controls.Add(this.pbBitmap);
             this.Name = "frmMain";
@@ -621,7 +694,7 @@
 
         private System.Windows.Forms.PictureBox pbImage;
         private System.Windows.Forms.PictureBox pbBitmap;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tlpResultPalette;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar tbRed;
         private System.Windows.Forms.Label label1;
@@ -653,7 +726,6 @@
         private System.Windows.Forms.TrackBar tbColorFilterFuzziness;
         private System.Windows.Forms.CheckBox cbColorFilterEnabled;
         private System.Windows.Forms.ListBox lstChain;
-        private System.Windows.Forms.Button btnAddColorChange;
         private System.Windows.Forms.CheckBox cbColorChangeEnabled;
         private System.Windows.Forms.TrackBar tbM;
         private System.Windows.Forms.Button btnColorChangeReset;
@@ -662,6 +734,10 @@
         private System.Windows.Forms.Label lblColor;
         private System.Windows.Forms.Label lblTolerance;
         private System.Windows.Forms.Label lblModifications;
+        private System.Windows.Forms.Label lblSourcePalette;
+        private System.Windows.Forms.TableLayoutPanel tlpSourcePalette;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox cbTargetPalette;
     }
 }
 

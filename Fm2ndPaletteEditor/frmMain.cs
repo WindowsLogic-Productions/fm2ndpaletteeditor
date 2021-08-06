@@ -3,6 +3,7 @@ using ImageProcessor.Imaging.Quantizers;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -25,11 +26,13 @@ namespace Fm2ndPaletteEditor
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            SetDoubleBuffered(this.tableLayoutPanel1);
+            SetDoubleBuffered(this.tlpResultPalette);
 
             lstChain.DataSource = Service.Chain.ColorChanges;
             lstChain.DisplayMember = "Idx";
             lstChain.SelectedItem = Service.Chain.ColorChanges[0];
+
+            cbTargetPalette.SelectedIndex = 0;
         }
 
         #region .. Double Buffered function ..
@@ -120,12 +123,22 @@ namespace Fm2ndPaletteEditor
             }
         }
 
-        private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        private void tlpSourcePalette_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            paintPaletteCell(e, Service.Player?.Palettes[_currentPalette]);
+        }
+
+        private void tlpResultPalette_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            paintPaletteCell(e, _palette);
+        }
+
+        private void paintPaletteCell(TableLayoutCellPaintEventArgs e, Color[] palette)
         {
             int idx = cellToPaletteIdx(e.Row, e.Column);
-            if (_palette != null)
+            if (palette != null)
             {
-                var color = idx < _palette.Count() ? _palette[idx] : Color.Transparent;
+                var color = idx < palette.Count() ? palette[idx] : Color.Transparent;
                 if (color.A == 255)
                 {
                     using (SolidBrush brush = new SolidBrush(color))
@@ -189,41 +202,45 @@ namespace Fm2ndPaletteEditor
         {
             using (var dialog = new OpenFileDialog())
             {
+                dialog.Filter = "Player|*.player";
+                dialog.Title = "Open Player";
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    dialog.Filter = "Player|*.player";
-                    dialog.Title = "Open Player";
-                    try
-                    {
-                        Service.Open(dialog.FileName);
-                        applyTransformation();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
+                    open(dialog.FileName);
+                    applyTransformation();
                 }
+            }
+        }
+
+        private void open(string fileName)
+        {
+            try
+            {
+                Service.Open(fileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            using (var dialog = new SaveFileDialog())
-            {
-                dialog.Filter = "Player|*.player";
-                dialog.Title = "Save Player";
+            var targetPalette = cbTargetPalette.SelectedIndex;
 
-                if (dialog.ShowDialog() == DialogResult.OK)
+            var confirmResult = MessageBox.Show($"The Result Palette will replace the Palette {targetPalette + 1} of {Path.GetFileName(Service.Player.FileName)}",
+                                     "Confirm Save",
+                                     MessageBoxButtons.OKCancel);
+            if (confirmResult == DialogResult.OK)
+            {
+                try
                 {
-                    try
-                    {
-                        var palettes = Service.TransformPalettes(Service.Player.Palettes);
-                        Service.Player.SavePalettes(dialog.FileName, palettes);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
+                    Service.Player.SavePalette(_palette, targetPalette);
+                    applyTransformation();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
                 }
             }
         }
@@ -307,17 +324,17 @@ namespace Fm2ndPaletteEditor
             return new Point(col, row);
         }
 
-        private void tableLayoutPanel1_Click(object sender, EventArgs e)
+        private void tlpSourcePalette_Click(object sender, EventArgs e)
         {
             if (Service.Player != null)
             {
                 var cellPos = GetRowColIndex(
-                    tableLayoutPanel1,
-                    tableLayoutPanel1.PointToClient(Cursor.Position));
+                    tlpSourcePalette,
+                    tlpSourcePalette.PointToClient(Cursor.Position));
                 if (cellPos.HasValue)
                 {
                     var idx = cellToPaletteIdx(cellPos.Value.Y, cellPos.Value.X);
-                    CurrentColorChange.ColorFilter.Color = Service.Player.Palettes[0][idx];
+                    CurrentColorChange.ColorFilter.Color = Service.Player.Palettes[_currentPalette][idx];
                     applyTransformation();
                 }
             }
@@ -365,7 +382,7 @@ namespace Fm2ndPaletteEditor
         }
 
         private void btnColorChangeReset_Click(object sender, EventArgs e)
-        {            
+        {
             tbH.Value = 0;
             tbS.Value = 0;
             tbL.Value = 0;
