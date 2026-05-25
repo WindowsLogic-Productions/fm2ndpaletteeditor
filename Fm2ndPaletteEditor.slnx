@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Fm2ndPaletteEditor.Service/Fm2ndPaletteEditor.Service.csproj" />
+  <Project Path="Fm2ndPaletteEditor/Fm2ndPaletteEditor.csproj" />
+</Solution>
