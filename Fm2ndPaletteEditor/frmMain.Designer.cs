@@ -79,6 +79,7 @@
             label8 = new Label();
             toolTip1 = new ToolTip(components);
             lblLoadAdvice = new Label();
+            lblImangeNumber = new Label();
             ((System.ComponentModel.ISupportInitialize)pbBitmap).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbRed).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbGreen).BeginInit();
@@ -757,11 +758,21 @@
             lblLoadAdvice.Text = "Load a .player file first";
             lblLoadAdvice.Click += lblLoadAdvice_Click;
             // 
+            // lblImangeNumber
+            // 
+            lblImangeNumber.AutoSize = true;
+            lblImangeNumber.Location = new Point(181, 438);
+            lblImangeNumber.Name = "lblImangeNumber";
+            lblImangeNumber.Size = new Size(64, 20);
+            lblImangeNumber.TabIndex = 21;
+            lblImangeNumber.Text = "Image #";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1256, 968);
+            Controls.Add(lblImangeNumber);
             Controls.Add(lblLoadAdvice);
             Controls.Add(label8);
             Controls.Add(lblIsPrivatePalette);
@@ -864,6 +875,7 @@
         private Label lblLoadAdvice;
         private Label label9;
         private ComboBox cbComparisonMethod;
+        private Label lblImangeNumber;
     }
 }
 
