@@ -30,11 +30,17 @@ namespace Fm2ndPaletteEditor.Service
             Palettes = _player.GlobalPalettes.ToArray();
         }
 
+        public int ImagesCount { get { return _player.Images.Count - 1; } }
+
+        public bool IsPrivatePalette(int value)
+        {
+            return _player.Images.ElementAt(value).PaletteType == PaletteType.Private;
+        }
+
         public Stream LoadImage(int i, int paletteIndex)
         {
             var image = _player.Images.ElementAt(i);
-            var palette = _player.GlobalPalettes.ElementAt(paletteIndex);
-
+            var palette = image.PaletteType == PaletteType.Global ? _player.GlobalPalettes.ElementAt(paletteIndex) : null;
             return ParseCommand.ToIndexedBmpStream(image, palette);
         }
 

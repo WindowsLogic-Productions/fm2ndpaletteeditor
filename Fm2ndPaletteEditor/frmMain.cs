@@ -18,6 +18,7 @@ namespace Fm2ndPaletteEditor
         {
             get => (ColorChange)lstChain.SelectedItem;
         }
+
         int _currentPalette;
 
         public frmMain()
@@ -81,12 +82,14 @@ namespace Fm2ndPaletteEditor
             if (_service.Player == null)
                 return;
 
+            loadBitmap((int)numCurrentImage.Value);
             var bitmap = (Bitmap)pbBitmap.Image!;
 
             ColorPalette pal = bitmap.Palette;// this returns a clone of the palette, so it's crucial to do it like this
             var entries = pal.Entries;
             _service.ApplyChainColorChanges(entries, _bitmapOriginalPalette!);
             bitmap.Palette = pal;
+            pbBitmap.Refresh();
 
             _palette = _service.CloneAndApplyChainColorChanges(_service.Player.Palettes[_currentPalette].Colors);
 
@@ -200,8 +203,9 @@ namespace Fm2ndPaletteEditor
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     open(dialog.FileName);
-                    loadBitmap(10);
-                    applyTransformation();
+                    numCurrentImage.Maximum = _service.Player.ImagesCount;
+                    numCurrentImage_ValueChanged(numCurrentImage, new EventArgs());
+                    lblLoadAdvice.Visible = false;
                 }
             }
         }
@@ -222,68 +226,89 @@ namespace Fm2ndPaletteEditor
         {
             var targetPalette = cbTargetPalette.SelectedIndex;
 
-            var confirmResult = MessageBox.Show($"The Result Palette will replace the Palette {targetPalette + 1} of {Path.GetFileName(_service.Player.FileName)}",
-                                     "Confirm Save",
-                                     MessageBoxButtons.OKCancel);
-            if (confirmResult == DialogResult.OK)
+            var dialogResult = MessageBox.Show(
+                $"The resulting palette will replace palette {targetPalette + 1} in {Path.GetFileName(_service.Player.FileName)}.{Environment.NewLine}" +
+                $"A backup file will be created in the same folder, but please back up your files before continuing.",
+                "Confirm Save",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2);
+
+            if (dialogResult != DialogResult.Yes)
+                return;
+
+            try
             {
-                try
-                {
-                    _service.Player.SavePalette(_palette!, targetPalette);
-                    applyTransformation();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error: {ex.Message}");
-                }
+                _service.Player.SavePalette(_palette!, targetPalette);
+                applyTransformation();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
 
         #region palette radio buttons
         private void rbPalette1_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette1.Checked) return;
+
             _currentPalette = 0;
             applyTransformation();
         }
 
         private void rbPalette2_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette2.Checked) return;
+
             _currentPalette = 1;
             applyTransformation();
         }
 
         private void rbPalette3_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette3.Checked) return;
+
             _currentPalette = 2;
             applyTransformation();
         }
 
         private void rbPalette4_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette4.Checked) return;
+
             _currentPalette = 3;
             applyTransformation();
         }
 
         private void rbPalette5_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette5.Checked) return;
+
             _currentPalette = 4;
             applyTransformation();
         }
 
         private void rbPalette6_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette6.Checked) return;
+
             _currentPalette = 5;
             applyTransformation();
         }
 
         private void rbPalette7_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette7.Checked) return;
+
             _currentPalette = 6;
             applyTransformation();
         }
 
         private void rbPalette8_CheckedChanged(object sender, EventArgs e)
         {
+            if (!rbPalette8.Checked) return;
+
             _currentPalette = 7;
             applyTransformation();
         }
@@ -292,6 +317,9 @@ namespace Fm2ndPaletteEditor
         {
             using (SolidBrush brush = new SolidBrush(CurrentColorChange.ColorFilter.Color))
                 e.Graphics.FillRectangle(brush, e.ClipRectangle);
+
+            var color = CurrentColorChange.ColorFilter.Color;
+            lblColorHex.Text = $"#{color.R.ToString("X2")}{color.G.ToString("X2")}{color.B.ToString("X2")}";
         }
         #endregion
 
@@ -331,7 +359,7 @@ namespace Fm2ndPaletteEditor
                 return;
             selectCurrentColorChangeColor(tlpResultPalette);
         }
-        
+
         private void selectCurrentColorChangeColor(TableLayoutPanel tlp)
         {
             var cellPos = GetRowColIndex(
@@ -405,7 +433,11 @@ namespace Fm2ndPaletteEditor
 
         private void pbBitmap_Click(object sender, EventArgs e)
         {
-            if (pbBitmap.Image == null) return;
+            if (_service.Player == null)
+            {
+                btnOpen_Click(sender, e);
+                return;
+            }
 
             MouseEventArgs me = (MouseEventArgs)e;
             var point = this.mapPbClickToBitmapPoint(me.Location);
@@ -455,6 +487,20 @@ namespace Fm2ndPaletteEditor
                 return new Point(bitmapX, bitmapY);
             }
             return null;
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(lblColorHex.Text);
+        }
+
+        private void numCurrentImage_ValueChanged(object sender, EventArgs e)
+        {
+            if (_service.Player == null) return;
+
+            loadBitmap((int)numCurrentImage.Value);
+            lblIsPrivatePalette.Visible = _service.Player.IsPrivatePalette((int)numCurrentImage.Value);
+            applyTransformation();
         }
     }
 }

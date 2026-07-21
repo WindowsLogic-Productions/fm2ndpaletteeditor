@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pbBitmap = new PictureBox();
             tlpResultPalette = new TableLayoutPanel();
             tbRed = new TrackBar();
@@ -55,6 +56,8 @@
             rbPalette8 = new RadioButton();
             btnOpen = new Button();
             gbColorFilter = new GroupBox();
+            btnCopy = new Button();
+            lblColorHex = new Label();
             lblColor = new Label();
             cbColorFilterEnabled = new CheckBox();
             lblTolerance = new Label();
@@ -69,6 +72,11 @@
             tlpSourcePalette = new TableLayoutPanel();
             label7 = new Label();
             cbTargetPalette = new ComboBox();
+            numCurrentImage = new NumericUpDown();
+            lblIsPrivatePalette = new Label();
+            label8 = new Label();
+            toolTip1 = new ToolTip(components);
+            lblLoadAdvice = new Label();
             ((System.ComponentModel.ISupportInitialize)pbBitmap).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbRed).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbGreen).BeginInit();
@@ -80,16 +88,17 @@
             gbColorFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tbColorFilterFuzziness).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbM).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numCurrentImage).BeginInit();
             SuspendLayout();
             // 
             // pbBitmap
             // 
             pbBitmap.BackgroundImageLayout = ImageLayout.Zoom;
             pbBitmap.BorderStyle = BorderStyle.FixedSingle;
-            pbBitmap.Location = new Point(13, 15);
+            pbBitmap.Location = new Point(13, 37);
             pbBitmap.Margin = new Padding(4, 5, 4, 5);
             pbBitmap.Name = "pbBitmap";
-            pbBitmap.Size = new Size(389, 447);
+            pbBitmap.Size = new Size(389, 384);
             pbBitmap.SizeMode = PictureBoxSizeMode.Zoom;
             pbBitmap.TabIndex = 0;
             pbBitmap.TabStop = false;
@@ -114,7 +123,7 @@
             tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
             tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
             tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
-            tlpResultPalette.Location = new Point(876, 548);
+            tlpResultPalette.Location = new Point(876, 541);
             tlpResultPalette.Margin = new Padding(4, 5, 4, 5);
             tlpResultPalette.Name = "tlpResultPalette";
             tlpResultPalette.RowCount = 16;
@@ -134,7 +143,7 @@
             tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
             tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
             tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
-            tlpResultPalette.Size = new Size(365, 426);
+            tlpResultPalette.Size = new Size(368, 416);
             tlpResultPalette.TabIndex = 1;
             tlpResultPalette.CellPaint += tlpResultPalette_CellPaint;
             tlpResultPalette.MouseClick += tlpResultPalette_MouseClick;
@@ -148,7 +157,7 @@
             tbRed.Maximum = 256;
             tbRed.Minimum = -256;
             tbRed.Name = "tbRed";
-            tbRed.Size = new Size(349, 56);
+            tbRed.Size = new Size(418, 56);
             tbRed.SmallChange = 8;
             tbRed.TabIndex = 3;
             tbRed.TickFrequency = 8;
@@ -173,7 +182,7 @@
             tbGreen.Maximum = 256;
             tbGreen.Minimum = -256;
             tbGreen.Name = "tbGreen";
-            tbGreen.Size = new Size(349, 56);
+            tbGreen.Size = new Size(418, 56);
             tbGreen.SmallChange = 8;
             tbGreen.TabIndex = 3;
             tbGreen.TickFrequency = 8;
@@ -188,7 +197,7 @@
             tbBlue.Maximum = 256;
             tbBlue.Minimum = -256;
             tbBlue.Name = "tbBlue";
-            tbBlue.Size = new Size(348, 56);
+            tbBlue.Size = new Size(417, 56);
             tbBlue.SmallChange = 8;
             tbBlue.TabIndex = 3;
             tbBlue.TickFrequency = 8;
@@ -223,7 +232,7 @@
             tbH.Maximum = 180;
             tbH.Minimum = -180;
             tbH.Name = "tbH";
-            tbH.Size = new Size(349, 56);
+            tbH.Size = new Size(418, 56);
             tbH.SmallChange = 8;
             tbH.TabIndex = 3;
             tbH.TickFrequency = 8;
@@ -268,7 +277,7 @@
             tbL.Maximum = 256;
             tbL.Minimum = -256;
             tbL.Name = "tbL";
-            tbL.Size = new Size(349, 56);
+            tbL.Size = new Size(418, 56);
             tbL.SmallChange = 8;
             tbL.TabIndex = 3;
             tbL.TickFrequency = 8;
@@ -283,7 +292,7 @@
             tbS.Maximum = 256;
             tbS.Minimum = -256;
             tbS.Name = "tbS";
-            tbS.Size = new Size(348, 56);
+            tbS.Size = new Size(417, 56);
             tbS.SmallChange = 8;
             tbS.TabIndex = 3;
             tbS.TickFrequency = 8;
@@ -305,21 +314,21 @@
             groupBox1.Controls.Add(tbGreen);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label6);
-            groupBox1.Location = new Point(411, 478);
+            groupBox1.Location = new Point(409, 431);
             groupBox1.Margin = new Padding(4, 5, 4, 5);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(4, 5, 4, 5);
-            groupBox1.Size = new Size(388, 491);
+            groupBox1.Size = new Size(457, 464);
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
             groupBox1.Text = "Color Change";
             // 
             // btnColorChangeReset
             // 
-            btnColorChangeReset.Location = new Point(280, 22);
+            btnColorChangeReset.Location = new Point(351, 26);
             btnColorChangeReset.Margin = new Padding(4, 5, 4, 5);
             btnColorChangeReset.Name = "btnColorChangeReset";
-            btnColorChangeReset.Size = new Size(100, 37);
+            btnColorChangeReset.Size = new Size(100, 29);
             btnColorChangeReset.TabIndex = 6;
             btnColorChangeReset.Text = "Reset";
             btnColorChangeReset.UseVisualStyleBackColor = true;
@@ -445,8 +454,7 @@
             // 
             // btnOpen
             // 
-            btnOpen.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnOpen.Location = new Point(16, 1011);
+            btnOpen.Location = new Point(13, 911);
             btnOpen.Margin = new Padding(4, 5, 4, 5);
             btnOpen.Name = "btnOpen";
             btnOpen.Size = new Size(116, 31);
@@ -457,6 +465,8 @@
             // 
             // gbColorFilter
             // 
+            gbColorFilter.Controls.Add(btnCopy);
+            gbColorFilter.Controls.Add(lblColorHex);
             gbColorFilter.Controls.Add(lblColor);
             gbColorFilter.Controls.Add(cbColorFilterEnabled);
             gbColorFilter.Controls.Add(lblTolerance);
@@ -464,14 +474,36 @@
             gbColorFilter.Controls.Add(tbColorFilterFuzziness);
             gbColorFilter.Controls.Add(tbM);
             gbColorFilter.Controls.Add(lblFuzziness);
-            gbColorFilter.Location = new Point(13, 512);
+            gbColorFilter.Location = new Point(13, 471);
             gbColorFilter.Margin = new Padding(4, 5, 4, 5);
             gbColorFilter.Name = "gbColorFilter";
             gbColorFilter.Padding = new Padding(4, 5, 4, 5);
-            gbColorFilter.Size = new Size(388, 457);
+            gbColorFilter.Size = new Size(388, 430);
             gbColorFilter.TabIndex = 8;
             gbColorFilter.TabStop = false;
             gbColorFilter.Text = "Filter";
+            // 
+            // btnCopy
+            // 
+            btnCopy.Location = new Point(327, 67);
+            btnCopy.Name = "btnCopy";
+            btnCopy.Size = new Size(53, 28);
+            btnCopy.TabIndex = 17;
+            btnCopy.Text = "Copy";
+            btnCopy.UseVisualStyleBackColor = true;
+            btnCopy.Click += btnCopy_Click;
+            // 
+            // lblColorHex
+            // 
+            lblColorHex.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblColorHex.AutoSize = true;
+            lblColorHex.Location = new Point(254, 75);
+            lblColorHex.Margin = new Padding(4, 0, 4, 0);
+            lblColorHex.Name = "lblColorHex";
+            lblColorHex.Size = new Size(66, 20);
+            lblColorHex.TabIndex = 14;
+            lblColorHex.Text = "#000000";
+            lblColorHex.TextAlign = ContentAlignment.TopRight;
             // 
             // lblColor
             // 
@@ -559,14 +591,13 @@
             lstChain.Location = new Point(409, 37);
             lstChain.Margin = new Padding(4, 5, 4, 5);
             lstChain.Name = "lstChain";
-            lstChain.Size = new Size(460, 424);
+            lstChain.Size = new Size(460, 384);
             lstChain.TabIndex = 12;
             lstChain.SelectedIndexChanged += lstChain_SelectedIndexChanged;
             // 
             // btnSave
             // 
-            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSave.Location = new Point(958, 1011);
+            btnSave.Location = new Point(409, 905);
             btnSave.Margin = new Padding(4, 5, 4, 5);
             btnSave.Name = "btnSave";
             btnSave.RightToLeft = RightToLeft.Yes;
@@ -579,7 +610,7 @@
             // lblModifications
             // 
             lblModifications.AutoSize = true;
-            lblModifications.Location = new Point(409, 15);
+            lblModifications.Location = new Point(409, 9);
             lblModifications.Margin = new Padding(4, 0, 4, 0);
             lblModifications.Name = "lblModifications";
             lblModifications.Size = new Size(100, 20);
@@ -635,7 +666,7 @@
             tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
             tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
             tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
-            tlpSourcePalette.Size = new Size(365, 426);
+            tlpSourcePalette.Size = new Size(368, 416);
             tlpSourcePalette.TabIndex = 1;
             tlpSourcePalette.CellPaint += tlpSourcePalette_CellPaint;
             tlpSourcePalette.Click += tlpSourcePalette_Click;
@@ -643,7 +674,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(872, 523);
+            label7.Location = new Point(878, 516);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(98, 20);
@@ -652,21 +683,63 @@
             // 
             // cbTargetPalette
             // 
-            cbTargetPalette.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             cbTargetPalette.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTargetPalette.FormattingEnabled = true;
             cbTargetPalette.Items.AddRange(new object[] { "Palette 1", "Palette 2", "Palette 3", "Palette 4", "Palette 5", "Palette 6", "Palette 7", "Palette 8" });
-            cbTargetPalette.Location = new Point(1083, 1009);
+            cbTargetPalette.Location = new Point(533, 908);
             cbTargetPalette.Margin = new Padding(4, 5, 4, 5);
             cbTargetPalette.Name = "cbTargetPalette";
             cbTargetPalette.Size = new Size(160, 28);
             cbTargetPalette.TabIndex = 16;
             // 
+            // numCurrentImage
+            // 
+            numCurrentImage.Location = new Point(251, 436);
+            numCurrentImage.Name = "numCurrentImage";
+            numCurrentImage.Size = new Size(150, 27);
+            numCurrentImage.TabIndex = 17;
+            numCurrentImage.ValueChanged += numCurrentImage_ValueChanged;
+            // 
+            // lblIsPrivatePalette
+            // 
+            lblIsPrivatePalette.AutoSize = true;
+            lblIsPrivatePalette.ForeColor = Color.Red;
+            lblIsPrivatePalette.Location = new Point(11, 438);
+            lblIsPrivatePalette.Name = "lblIsPrivatePalette";
+            lblIsPrivatePalette.Size = new Size(107, 20);
+            lblIsPrivatePalette.TabIndex = 18;
+            lblIsPrivatePalette.Text = "Private Palette!";
+            toolTip1.SetToolTip(lblIsPrivatePalette, "The result palette is not applied to preview images with private palette");
+            lblIsPrivatePalette.Visible = false;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(13, 9);
+            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(105, 20);
+            label8.TabIndex = 19;
+            label8.Text = "Sample Image";
+            // 
+            // lblLoadAdvice
+            // 
+            lblLoadAdvice.AutoSize = true;
+            lblLoadAdvice.Location = new Point(115, 232);
+            lblLoadAdvice.Name = "lblLoadAdvice";
+            lblLoadAdvice.Size = new Size(156, 20);
+            lblLoadAdvice.TabIndex = 20;
+            lblLoadAdvice.Text = "Load a .player file first";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1256, 1060);
+            ClientSize = new Size(1256, 968);
+            Controls.Add(lblLoadAdvice);
+            Controls.Add(label8);
+            Controls.Add(lblIsPrivatePalette);
+            Controls.Add(numCurrentImage);
             Controls.Add(cbTargetPalette);
             Controls.Add(label7);
             Controls.Add(lblSourcePalette);
@@ -703,6 +776,7 @@
             gbColorFilter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)tbColorFilterFuzziness).EndInit();
             ((System.ComponentModel.ISupportInitialize)tbM).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numCurrentImage).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -755,6 +829,13 @@
         private System.Windows.Forms.TableLayoutPanel tlpSourcePalette;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cbTargetPalette;
+        private Label lblColorHex;
+        private Button btnCopy;
+        private NumericUpDown numCurrentImage;
+        private Label lblIsPrivatePalette;
+        private Label label8;
+        private ToolTip toolTip1;
+        private Label lblLoadAdvice;
     }
 }
 
