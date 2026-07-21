@@ -755,6 +755,7 @@
             lblLoadAdvice.Size = new Size(156, 20);
             lblLoadAdvice.TabIndex = 20;
             lblLoadAdvice.Text = "Load a .player file first";
+            lblLoadAdvice.Click += lblLoadAdvice_Click;
             // 
             // frmMain
             // 

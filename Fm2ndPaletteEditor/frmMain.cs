@@ -504,5 +504,10 @@ namespace Fm2ndPaletteEditor
             lblIsPrivatePalette.Visible = _service.Player.IsPrivatePalette((int)numCurrentImage.Value);
             applyTransformation();
         }
+
+        private void lblLoadAdvice_Click(object sender, EventArgs e)
+        {
+            pbBitmap_Click(sender, e);
+        }
     }
 }
