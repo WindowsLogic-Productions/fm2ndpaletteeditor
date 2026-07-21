@@ -11,4 +11,8 @@
     <PackageReference Include="morelinq" Version="4.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\fm2ndparser\Fm2ndParser\Fm2ndParser.csproj" />
+  </ItemGroup>
+
 </Project>

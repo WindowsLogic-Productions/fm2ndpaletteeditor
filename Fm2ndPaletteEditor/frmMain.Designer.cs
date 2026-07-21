@@ -28,714 +28,683 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pbBitmap = new System.Windows.Forms.PictureBox();
-            this.tlpResultPalette = new System.Windows.Forms.TableLayoutPanel();
-            this.tbRed = new System.Windows.Forms.TrackBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbGreen = new System.Windows.Forms.TrackBar();
-            this.tbBlue = new System.Windows.Forms.TrackBar();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbH = new System.Windows.Forms.TrackBar();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tbL = new System.Windows.Forms.TrackBar();
-            this.tbS = new System.Windows.Forms.TrackBar();
-            this.lblImageHint = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnColorChangeReset = new System.Windows.Forms.Button();
-            this.cbColorChangeEnabled = new System.Windows.Forms.CheckBox();
-            this.rbPalette1 = new System.Windows.Forms.RadioButton();
-            this.rbPalette2 = new System.Windows.Forms.RadioButton();
-            this.rbPalette3 = new System.Windows.Forms.RadioButton();
-            this.rbPalette4 = new System.Windows.Forms.RadioButton();
-            this.rbPalette5 = new System.Windows.Forms.RadioButton();
-            this.rbPalette6 = new System.Windows.Forms.RadioButton();
-            this.rbPalette7 = new System.Windows.Forms.RadioButton();
-            this.rbPalette8 = new System.Windows.Forms.RadioButton();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.gbColorFilter = new System.Windows.Forms.GroupBox();
-            this.lblColor = new System.Windows.Forms.Label();
-            this.cbColorFilterEnabled = new System.Windows.Forms.CheckBox();
-            this.lblTolerance = new System.Windows.Forms.Label();
-            this.pnlFilterColor = new System.Windows.Forms.Panel();
-            this.tbColorFilterFuzziness = new System.Windows.Forms.TrackBar();
-            this.tbM = new System.Windows.Forms.TrackBar();
-            this.lblFuzziness = new System.Windows.Forms.Label();
-            this.lstChain = new System.Windows.Forms.ListBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.lblModifications = new System.Windows.Forms.Label();
-            this.lblSourcePalette = new System.Windows.Forms.Label();
-            this.tlpSourcePalette = new System.Windows.Forms.TableLayoutPanel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.cbTargetPalette = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pbBitmap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbRed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbGreen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbBlue)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbH)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbL)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbS)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.gbColorFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbColorFilterFuzziness)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbM)).BeginInit();
-            this.SuspendLayout();
+            pbBitmap = new PictureBox();
+            tlpResultPalette = new TableLayoutPanel();
+            tbRed = new TrackBar();
+            label1 = new Label();
+            tbGreen = new TrackBar();
+            tbBlue = new TrackBar();
+            label2 = new Label();
+            label3 = new Label();
+            tbH = new TrackBar();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            tbL = new TrackBar();
+            tbS = new TrackBar();
+            groupBox1 = new GroupBox();
+            btnColorChangeReset = new Button();
+            cbColorChangeEnabled = new CheckBox();
+            rbPalette1 = new RadioButton();
+            rbPalette2 = new RadioButton();
+            rbPalette3 = new RadioButton();
+            rbPalette4 = new RadioButton();
+            rbPalette5 = new RadioButton();
+            rbPalette6 = new RadioButton();
+            rbPalette7 = new RadioButton();
+            rbPalette8 = new RadioButton();
+            btnOpen = new Button();
+            gbColorFilter = new GroupBox();
+            lblColor = new Label();
+            cbColorFilterEnabled = new CheckBox();
+            lblTolerance = new Label();
+            pnlFilterColor = new Panel();
+            tbColorFilterFuzziness = new TrackBar();
+            tbM = new TrackBar();
+            lblFuzziness = new Label();
+            lstChain = new ListBox();
+            btnSave = new Button();
+            lblModifications = new Label();
+            lblSourcePalette = new Label();
+            tlpSourcePalette = new TableLayoutPanel();
+            label7 = new Label();
+            cbTargetPalette = new ComboBox();
+            ((System.ComponentModel.ISupportInitialize)pbBitmap).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbRed).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbGreen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbBlue).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbH).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbL).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbS).BeginInit();
+            groupBox1.SuspendLayout();
+            gbColorFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tbColorFilterFuzziness).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbM).BeginInit();
+            SuspendLayout();
             // 
             // pbBitmap
             // 
-            this.pbBitmap.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbBitmap.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbBitmap.Location = new System.Drawing.Point(15, 15);
-            this.pbBitmap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pbBitmap.Name = "pbBitmap";
-            this.pbBitmap.Size = new System.Drawing.Size(437, 447);
-            this.pbBitmap.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pbBitmap.TabIndex = 0;
-            this.pbBitmap.TabStop = false;
-            this.pbBitmap.Click += new System.EventHandler(this.pictureBox1_Click);
+            pbBitmap.BackgroundImageLayout = ImageLayout.Zoom;
+            pbBitmap.BorderStyle = BorderStyle.FixedSingle;
+            pbBitmap.Location = new Point(13, 15);
+            pbBitmap.Margin = new Padding(4, 5, 4, 5);
+            pbBitmap.Name = "pbBitmap";
+            pbBitmap.Size = new Size(389, 447);
+            pbBitmap.SizeMode = PictureBoxSizeMode.Zoom;
+            pbBitmap.TabIndex = 0;
+            pbBitmap.TabStop = false;
+            pbBitmap.Click += pbBitmap_Click;
             // 
             // tlpResultPalette
             // 
-            this.tlpResultPalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpResultPalette.ColumnCount = 16;
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tlpResultPalette.Location = new System.Drawing.Point(986, 548);
-            this.tlpResultPalette.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tlpResultPalette.Name = "tlpResultPalette";
-            this.tlpResultPalette.RowCount = 16;
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpResultPalette.Size = new System.Drawing.Size(411, 426);
-            this.tlpResultPalette.TabIndex = 1;
-            this.tlpResultPalette.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tlpResultPalette_CellPaint);
+            tlpResultPalette.ColumnCount = 16;
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpResultPalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
+            tlpResultPalette.Location = new Point(876, 548);
+            tlpResultPalette.Margin = new Padding(4, 5, 4, 5);
+            tlpResultPalette.Name = "tlpResultPalette";
+            tlpResultPalette.RowCount = 16;
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpResultPalette.Size = new Size(365, 426);
+            tlpResultPalette.TabIndex = 1;
+            tlpResultPalette.CellPaint += tlpResultPalette_CellPaint;
+            tlpResultPalette.MouseClick += tlpResultPalette_MouseClick;
             // 
             // tbRed
             // 
-            this.tbRed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbRed.LargeChange = 32;
-            this.tbRed.Location = new System.Drawing.Point(34, 65);
-            this.tbRed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbRed.Maximum = 256;
-            this.tbRed.Minimum = -256;
-            this.tbRed.Name = "tbRed";
-            this.tbRed.Size = new System.Drawing.Size(393, 56);
-            this.tbRed.SmallChange = 8;
-            this.tbRed.TabIndex = 3;
-            this.tbRed.TickFrequency = 8;
-            this.tbRed.Scroll += new System.EventHandler(this.tb_Scroll);
+            tbRed.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbRed.LargeChange = 32;
+            tbRed.Location = new Point(30, 65);
+            tbRed.Margin = new Padding(4, 5, 4, 5);
+            tbRed.Maximum = 256;
+            tbRed.Minimum = -256;
+            tbRed.Name = "tbRed";
+            tbRed.Size = new Size(349, 56);
+            tbRed.SmallChange = 8;
+            tbRed.TabIndex = 3;
+            tbRed.TickFrequency = 8;
+            tbRed.Scroll += tb_Scroll;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 65);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(21, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "R";
+            label1.AutoSize = true;
+            label1.Location = new Point(8, 65);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(18, 20);
+            label1.TabIndex = 4;
+            label1.Text = "R";
             // 
             // tbGreen
             // 
-            this.tbGreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbGreen.LargeChange = 32;
-            this.tbGreen.Location = new System.Drawing.Point(34, 134);
-            this.tbGreen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbGreen.Maximum = 256;
-            this.tbGreen.Minimum = -256;
-            this.tbGreen.Name = "tbGreen";
-            this.tbGreen.Size = new System.Drawing.Size(393, 56);
-            this.tbGreen.SmallChange = 8;
-            this.tbGreen.TabIndex = 3;
-            this.tbGreen.TickFrequency = 8;
-            this.tbGreen.Scroll += new System.EventHandler(this.tb_Scroll);
+            tbGreen.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbGreen.LargeChange = 32;
+            tbGreen.Location = new Point(30, 134);
+            tbGreen.Margin = new Padding(4, 5, 4, 5);
+            tbGreen.Maximum = 256;
+            tbGreen.Minimum = -256;
+            tbGreen.Name = "tbGreen";
+            tbGreen.Size = new Size(349, 56);
+            tbGreen.SmallChange = 8;
+            tbGreen.TabIndex = 3;
+            tbGreen.TickFrequency = 8;
+            tbGreen.Scroll += tb_Scroll;
             // 
             // tbBlue
             // 
-            this.tbBlue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbBlue.LargeChange = 32;
-            this.tbBlue.Location = new System.Drawing.Point(36, 202);
-            this.tbBlue.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbBlue.Maximum = 256;
-            this.tbBlue.Minimum = -256;
-            this.tbBlue.Name = "tbBlue";
-            this.tbBlue.Size = new System.Drawing.Size(392, 56);
-            this.tbBlue.SmallChange = 8;
-            this.tbBlue.TabIndex = 3;
-            this.tbBlue.TickFrequency = 8;
-            this.tbBlue.Scroll += new System.EventHandler(this.tb_Scroll);
+            tbBlue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbBlue.LargeChange = 32;
+            tbBlue.Location = new Point(32, 202);
+            tbBlue.Margin = new Padding(4, 5, 4, 5);
+            tbBlue.Maximum = 256;
+            tbBlue.Minimum = -256;
+            tbBlue.Name = "tbBlue";
+            tbBlue.Size = new Size(348, 56);
+            tbBlue.SmallChange = 8;
+            tbBlue.TabIndex = 3;
+            tbBlue.TickFrequency = 8;
+            tbBlue.Scroll += tb_Scroll;
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 134);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "G";
+            label2.AutoSize = true;
+            label2.Location = new Point(7, 134);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(19, 20);
+            label2.TabIndex = 4;
+            label2.Text = "G";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 202);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(20, 20);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "B";
+            label3.AutoSize = true;
+            label3.Location = new Point(7, 202);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(18, 20);
+            label3.TabIndex = 4;
+            label3.Text = "B";
             // 
             // tbH
             // 
-            this.tbH.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbH.LargeChange = 32;
-            this.tbH.Location = new System.Drawing.Point(36, 269);
-            this.tbH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbH.Maximum = 180;
-            this.tbH.Minimum = -180;
-            this.tbH.Name = "tbH";
-            this.tbH.Size = new System.Drawing.Size(393, 56);
-            this.tbH.SmallChange = 8;
-            this.tbH.TabIndex = 3;
-            this.tbH.TickFrequency = 8;
-            this.tbH.Scroll += new System.EventHandler(this.tb_Scroll);
+            tbH.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbH.LargeChange = 32;
+            tbH.Location = new Point(32, 269);
+            tbH.Margin = new Padding(4, 5, 4, 5);
+            tbH.Maximum = 180;
+            tbH.Minimum = -180;
+            tbH.Name = "tbH";
+            tbH.Size = new Size(349, 56);
+            tbH.SmallChange = 8;
+            tbH.TabIndex = 3;
+            tbH.TickFrequency = 8;
+            tbH.Scroll += tb_Scroll;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 269);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 20);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "H";
+            label4.AutoSize = true;
+            label4.Location = new Point(8, 269);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(20, 20);
+            label4.TabIndex = 4;
+            label4.Text = "H";
             // 
             // label5
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 337);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(18, 20);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "L";
+            label5.AutoSize = true;
+            label5.Location = new Point(8, 337);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(16, 20);
+            label5.TabIndex = 4;
+            label5.Text = "L";
             // 
             // label6
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 405);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(20, 20);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "S";
+            label6.AutoSize = true;
+            label6.Location = new Point(8, 405);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(17, 20);
+            label6.TabIndex = 4;
+            label6.Text = "S";
             // 
             // tbL
             // 
-            this.tbL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbL.LargeChange = 32;
-            this.tbL.Location = new System.Drawing.Point(36, 337);
-            this.tbL.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbL.Maximum = 256;
-            this.tbL.Minimum = -256;
-            this.tbL.Name = "tbL";
-            this.tbL.Size = new System.Drawing.Size(393, 56);
-            this.tbL.SmallChange = 8;
-            this.tbL.TabIndex = 3;
-            this.tbL.TickFrequency = 8;
-            this.tbL.Scroll += new System.EventHandler(this.tb_Scroll);
+            tbL.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbL.LargeChange = 32;
+            tbL.Location = new Point(32, 337);
+            tbL.Margin = new Padding(4, 5, 4, 5);
+            tbL.Maximum = 256;
+            tbL.Minimum = -256;
+            tbL.Name = "tbL";
+            tbL.Size = new Size(349, 56);
+            tbL.SmallChange = 8;
+            tbL.TabIndex = 3;
+            tbL.TickFrequency = 8;
+            tbL.Scroll += tb_Scroll;
             // 
             // tbS
             // 
-            this.tbS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbS.LargeChange = 32;
-            this.tbS.Location = new System.Drawing.Point(38, 405);
-            this.tbS.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbS.Maximum = 256;
-            this.tbS.Minimum = -256;
-            this.tbS.Name = "tbS";
-            this.tbS.Size = new System.Drawing.Size(392, 56);
-            this.tbS.SmallChange = 8;
-            this.tbS.TabIndex = 3;
-            this.tbS.TickFrequency = 8;
-            this.tbS.Scroll += new System.EventHandler(this.tb_Scroll);
-            // 
-            // lblImageHint
-            // 
-            this.lblImageHint.AutoSize = true;
-            this.lblImageHint.Location = new System.Drawing.Point(126, 232);
-            this.lblImageHint.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblImageHint.Name = "lblImageHint";
-            this.lblImageHint.Size = new System.Drawing.Size(196, 20);
-            this.lblImageHint.TabIndex = 5;
-            this.lblImageHint.Text = "Click to load sample image";
-            this.lblImageHint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            tbS.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbS.LargeChange = 32;
+            tbS.Location = new Point(34, 405);
+            tbS.Margin = new Padding(4, 5, 4, 5);
+            tbS.Maximum = 256;
+            tbS.Minimum = -256;
+            tbS.Name = "tbS";
+            tbS.Size = new Size(348, 56);
+            tbS.SmallChange = 8;
+            tbS.TabIndex = 3;
+            tbS.TickFrequency = 8;
+            tbS.Scroll += tb_Scroll;
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnColorChangeReset);
-            this.groupBox1.Controls.Add(this.cbColorChangeEnabled);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.tbRed);
-            this.groupBox1.Controls.Add(this.tbH);
-            this.groupBox1.Controls.Add(this.tbS);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.tbBlue);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.tbL);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.tbGreen);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Location = new System.Drawing.Point(462, 478);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(436, 491);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Color Change";
+            groupBox1.Controls.Add(btnColorChangeReset);
+            groupBox1.Controls.Add(cbColorChangeEnabled);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(tbRed);
+            groupBox1.Controls.Add(tbH);
+            groupBox1.Controls.Add(tbS);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(tbBlue);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(tbL);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(tbGreen);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(label6);
+            groupBox1.Location = new Point(411, 478);
+            groupBox1.Margin = new Padding(4, 5, 4, 5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 5, 4, 5);
+            groupBox1.Size = new Size(388, 491);
+            groupBox1.TabIndex = 8;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Color Change";
             // 
             // btnColorChangeReset
             // 
-            this.btnColorChangeReset.Location = new System.Drawing.Point(315, 22);
-            this.btnColorChangeReset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnColorChangeReset.Name = "btnColorChangeReset";
-            this.btnColorChangeReset.Size = new System.Drawing.Size(112, 37);
-            this.btnColorChangeReset.TabIndex = 6;
-            this.btnColorChangeReset.Text = "Reset";
-            this.btnColorChangeReset.UseVisualStyleBackColor = true;
-            this.btnColorChangeReset.Click += new System.EventHandler(this.btnColorChangeReset_Click);
+            btnColorChangeReset.Location = new Point(280, 22);
+            btnColorChangeReset.Margin = new Padding(4, 5, 4, 5);
+            btnColorChangeReset.Name = "btnColorChangeReset";
+            btnColorChangeReset.Size = new Size(100, 37);
+            btnColorChangeReset.TabIndex = 6;
+            btnColorChangeReset.Text = "Reset";
+            btnColorChangeReset.UseVisualStyleBackColor = true;
+            btnColorChangeReset.Click += btnColorChangeReset_Click;
             // 
             // cbColorChangeEnabled
             // 
-            this.cbColorChangeEnabled.AutoSize = true;
-            this.cbColorChangeEnabled.Location = new System.Drawing.Point(10, 29);
-            this.cbColorChangeEnabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbColorChangeEnabled.Name = "cbColorChangeEnabled";
-            this.cbColorChangeEnabled.Size = new System.Drawing.Size(90, 24);
-            this.cbColorChangeEnabled.TabIndex = 5;
-            this.cbColorChangeEnabled.Text = "Enabled";
-            this.cbColorChangeEnabled.UseVisualStyleBackColor = true;
-            this.cbColorChangeEnabled.CheckedChanged += new System.EventHandler(this.cbColorChangeEnabled_CheckedChanged);
+            cbColorChangeEnabled.AutoSize = true;
+            cbColorChangeEnabled.Location = new Point(9, 29);
+            cbColorChangeEnabled.Margin = new Padding(4, 5, 4, 5);
+            cbColorChangeEnabled.Name = "cbColorChangeEnabled";
+            cbColorChangeEnabled.Size = new Size(85, 24);
+            cbColorChangeEnabled.TabIndex = 5;
+            cbColorChangeEnabled.Text = "Enabled";
+            cbColorChangeEnabled.UseVisualStyleBackColor = true;
+            cbColorChangeEnabled.CheckedChanged += cbColorChangeEnabled_CheckedChanged;
             // 
             // rbPalette1
             // 
-            this.rbPalette1.AutoSize = true;
-            this.rbPalette1.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette1.Checked = true;
-            this.rbPalette1.Location = new System.Drawing.Point(1002, 37);
-            this.rbPalette1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette1.Name = "rbPalette1";
-            this.rbPalette1.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette1.TabIndex = 10;
-            this.rbPalette1.TabStop = true;
-            this.rbPalette1.Text = "1";
-            this.rbPalette1.UseVisualStyleBackColor = true;
-            this.rbPalette1.CheckedChanged += new System.EventHandler(this.rbPalette1_CheckedChanged);
+            rbPalette1.AutoSize = true;
+            rbPalette1.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette1.Checked = true;
+            rbPalette1.Location = new Point(892, 22);
+            rbPalette1.Margin = new Padding(4, 5, 4, 5);
+            rbPalette1.Name = "rbPalette1";
+            rbPalette1.Size = new Size(21, 40);
+            rbPalette1.TabIndex = 10;
+            rbPalette1.TabStop = true;
+            rbPalette1.Text = "1";
+            rbPalette1.UseVisualStyleBackColor = true;
+            rbPalette1.CheckedChanged += rbPalette1_CheckedChanged;
             // 
             // rbPalette2
             // 
-            this.rbPalette2.AutoSize = true;
-            this.rbPalette2.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette2.Location = new System.Drawing.Point(1053, 37);
-            this.rbPalette2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette2.Name = "rbPalette2";
-            this.rbPalette2.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette2.TabIndex = 10;
-            this.rbPalette2.Text = "2";
-            this.rbPalette2.UseVisualStyleBackColor = true;
-            this.rbPalette2.CheckedChanged += new System.EventHandler(this.rbPalette2_CheckedChanged);
+            rbPalette2.AutoSize = true;
+            rbPalette2.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette2.Location = new Point(937, 22);
+            rbPalette2.Margin = new Padding(4, 5, 4, 5);
+            rbPalette2.Name = "rbPalette2";
+            rbPalette2.Size = new Size(21, 40);
+            rbPalette2.TabIndex = 10;
+            rbPalette2.Text = "2";
+            rbPalette2.UseVisualStyleBackColor = true;
+            rbPalette2.CheckedChanged += rbPalette2_CheckedChanged;
             // 
             // rbPalette3
             // 
-            this.rbPalette3.AutoSize = true;
-            this.rbPalette3.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette3.Location = new System.Drawing.Point(1104, 37);
-            this.rbPalette3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette3.Name = "rbPalette3";
-            this.rbPalette3.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette3.TabIndex = 10;
-            this.rbPalette3.Text = "3";
-            this.rbPalette3.UseVisualStyleBackColor = true;
-            this.rbPalette3.CheckedChanged += new System.EventHandler(this.rbPalette3_CheckedChanged);
+            rbPalette3.AutoSize = true;
+            rbPalette3.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette3.Location = new Point(982, 22);
+            rbPalette3.Margin = new Padding(4, 5, 4, 5);
+            rbPalette3.Name = "rbPalette3";
+            rbPalette3.Size = new Size(21, 40);
+            rbPalette3.TabIndex = 10;
+            rbPalette3.Text = "3";
+            rbPalette3.UseVisualStyleBackColor = true;
+            rbPalette3.CheckedChanged += rbPalette3_CheckedChanged;
             // 
             // rbPalette4
             // 
-            this.rbPalette4.AutoSize = true;
-            this.rbPalette4.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette4.Location = new System.Drawing.Point(1156, 37);
-            this.rbPalette4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette4.Name = "rbPalette4";
-            this.rbPalette4.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette4.TabIndex = 10;
-            this.rbPalette4.Text = "4";
-            this.rbPalette4.UseVisualStyleBackColor = true;
-            this.rbPalette4.CheckedChanged += new System.EventHandler(this.rbPalette4_CheckedChanged);
+            rbPalette4.AutoSize = true;
+            rbPalette4.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette4.Location = new Point(1029, 22);
+            rbPalette4.Margin = new Padding(4, 5, 4, 5);
+            rbPalette4.Name = "rbPalette4";
+            rbPalette4.Size = new Size(21, 40);
+            rbPalette4.TabIndex = 10;
+            rbPalette4.Text = "4";
+            rbPalette4.UseVisualStyleBackColor = true;
+            rbPalette4.CheckedChanged += rbPalette4_CheckedChanged;
             // 
             // rbPalette5
             // 
-            this.rbPalette5.AutoSize = true;
-            this.rbPalette5.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette5.Location = new System.Drawing.Point(1208, 37);
-            this.rbPalette5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette5.Name = "rbPalette5";
-            this.rbPalette5.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette5.TabIndex = 10;
-            this.rbPalette5.Text = "5";
-            this.rbPalette5.UseVisualStyleBackColor = true;
-            this.rbPalette5.CheckedChanged += new System.EventHandler(this.rbPalette5_CheckedChanged);
+            rbPalette5.AutoSize = true;
+            rbPalette5.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette5.Location = new Point(1075, 22);
+            rbPalette5.Margin = new Padding(4, 5, 4, 5);
+            rbPalette5.Name = "rbPalette5";
+            rbPalette5.Size = new Size(21, 40);
+            rbPalette5.TabIndex = 10;
+            rbPalette5.Text = "5";
+            rbPalette5.UseVisualStyleBackColor = true;
+            rbPalette5.CheckedChanged += rbPalette5_CheckedChanged;
             // 
             // rbPalette6
             // 
-            this.rbPalette6.AutoSize = true;
-            this.rbPalette6.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette6.Location = new System.Drawing.Point(1258, 37);
-            this.rbPalette6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette6.Name = "rbPalette6";
-            this.rbPalette6.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette6.TabIndex = 10;
-            this.rbPalette6.Text = "6";
-            this.rbPalette6.UseVisualStyleBackColor = true;
-            this.rbPalette6.CheckedChanged += new System.EventHandler(this.rbPalette6_CheckedChanged);
+            rbPalette6.AutoSize = true;
+            rbPalette6.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette6.Location = new Point(1119, 22);
+            rbPalette6.Margin = new Padding(4, 5, 4, 5);
+            rbPalette6.Name = "rbPalette6";
+            rbPalette6.Size = new Size(21, 40);
+            rbPalette6.TabIndex = 10;
+            rbPalette6.Text = "6";
+            rbPalette6.UseVisualStyleBackColor = true;
+            rbPalette6.CheckedChanged += rbPalette6_CheckedChanged;
             // 
             // rbPalette7
             // 
-            this.rbPalette7.AutoSize = true;
-            this.rbPalette7.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette7.Location = new System.Drawing.Point(1310, 37);
-            this.rbPalette7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette7.Name = "rbPalette7";
-            this.rbPalette7.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette7.TabIndex = 10;
-            this.rbPalette7.Text = "7";
-            this.rbPalette7.UseVisualStyleBackColor = true;
-            this.rbPalette7.CheckedChanged += new System.EventHandler(this.rbPalette7_CheckedChanged);
+            rbPalette7.AutoSize = true;
+            rbPalette7.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette7.Location = new Point(1165, 22);
+            rbPalette7.Margin = new Padding(4, 5, 4, 5);
+            rbPalette7.Name = "rbPalette7";
+            rbPalette7.Size = new Size(21, 40);
+            rbPalette7.TabIndex = 10;
+            rbPalette7.Text = "7";
+            rbPalette7.UseVisualStyleBackColor = true;
+            rbPalette7.CheckedChanged += rbPalette7_CheckedChanged;
             // 
             // rbPalette8
             // 
-            this.rbPalette8.AutoSize = true;
-            this.rbPalette8.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.rbPalette8.Location = new System.Drawing.Point(1362, 37);
-            this.rbPalette8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbPalette8.Name = "rbPalette8";
-            this.rbPalette8.Size = new System.Drawing.Size(22, 40);
-            this.rbPalette8.TabIndex = 10;
-            this.rbPalette8.Text = "8";
-            this.rbPalette8.UseVisualStyleBackColor = true;
-            this.rbPalette8.CheckedChanged += new System.EventHandler(this.rbPalette8_CheckedChanged);
+            rbPalette8.AutoSize = true;
+            rbPalette8.CheckAlign = ContentAlignment.TopCenter;
+            rbPalette8.Location = new Point(1212, 22);
+            rbPalette8.Margin = new Padding(4, 5, 4, 5);
+            rbPalette8.Name = "rbPalette8";
+            rbPalette8.Size = new Size(21, 40);
+            rbPalette8.TabIndex = 10;
+            rbPalette8.Text = "8";
+            rbPalette8.UseVisualStyleBackColor = true;
+            rbPalette8.CheckedChanged += rbPalette8_CheckedChanged;
             // 
             // btnOpen
             // 
-            this.btnOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOpen.Location = new System.Drawing.Point(18, 1097);
-            this.btnOpen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(130, 31);
-            this.btnOpen.TabIndex = 11;
-            this.btnOpen.Text = "Open Player File";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            btnOpen.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnOpen.Location = new Point(16, 1011);
+            btnOpen.Margin = new Padding(4, 5, 4, 5);
+            btnOpen.Name = "btnOpen";
+            btnOpen.Size = new Size(116, 31);
+            btnOpen.TabIndex = 11;
+            btnOpen.Text = "Open Player File";
+            btnOpen.UseVisualStyleBackColor = true;
+            btnOpen.Click += btnOpen_Click;
             // 
             // gbColorFilter
             // 
-            this.gbColorFilter.Controls.Add(this.lblColor);
-            this.gbColorFilter.Controls.Add(this.cbColorFilterEnabled);
-            this.gbColorFilter.Controls.Add(this.lblTolerance);
-            this.gbColorFilter.Controls.Add(this.pnlFilterColor);
-            this.gbColorFilter.Controls.Add(this.tbColorFilterFuzziness);
-            this.gbColorFilter.Controls.Add(this.tbM);
-            this.gbColorFilter.Controls.Add(this.lblFuzziness);
-            this.gbColorFilter.Location = new System.Drawing.Point(15, 512);
-            this.gbColorFilter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbColorFilter.Name = "gbColorFilter";
-            this.gbColorFilter.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbColorFilter.Size = new System.Drawing.Size(436, 457);
-            this.gbColorFilter.TabIndex = 8;
-            this.gbColorFilter.TabStop = false;
-            this.gbColorFilter.Text = "Filter";
+            gbColorFilter.Controls.Add(lblColor);
+            gbColorFilter.Controls.Add(cbColorFilterEnabled);
+            gbColorFilter.Controls.Add(lblTolerance);
+            gbColorFilter.Controls.Add(pnlFilterColor);
+            gbColorFilter.Controls.Add(tbColorFilterFuzziness);
+            gbColorFilter.Controls.Add(tbM);
+            gbColorFilter.Controls.Add(lblFuzziness);
+            gbColorFilter.Location = new Point(13, 512);
+            gbColorFilter.Margin = new Padding(4, 5, 4, 5);
+            gbColorFilter.Name = "gbColorFilter";
+            gbColorFilter.Padding = new Padding(4, 5, 4, 5);
+            gbColorFilter.Size = new Size(388, 457);
+            gbColorFilter.TabIndex = 8;
+            gbColorFilter.TabStop = false;
+            gbColorFilter.Text = "Filter";
             // 
             // lblColor
             // 
-            this.lblColor.AutoSize = true;
-            this.lblColor.Location = new System.Drawing.Point(15, 75);
-            this.lblColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblColor.Name = "lblColor";
-            this.lblColor.Size = new System.Drawing.Size(46, 20);
-            this.lblColor.TabIndex = 13;
-            this.lblColor.Text = "Color";
+            lblColor.AutoSize = true;
+            lblColor.Location = new Point(13, 75);
+            lblColor.Margin = new Padding(4, 0, 4, 0);
+            lblColor.Name = "lblColor";
+            lblColor.Size = new Size(45, 20);
+            lblColor.TabIndex = 13;
+            lblColor.Text = "Color";
             // 
             // cbColorFilterEnabled
             // 
-            this.cbColorFilterEnabled.AutoSize = true;
-            this.cbColorFilterEnabled.Location = new System.Drawing.Point(8, 26);
-            this.cbColorFilterEnabled.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbColorFilterEnabled.Name = "cbColorFilterEnabled";
-            this.cbColorFilterEnabled.Size = new System.Drawing.Size(90, 24);
-            this.cbColorFilterEnabled.TabIndex = 12;
-            this.cbColorFilterEnabled.Text = "Enabled";
-            this.cbColorFilterEnabled.UseVisualStyleBackColor = true;
-            this.cbColorFilterEnabled.CheckedChanged += new System.EventHandler(this.cbColorFilterEnabled_CheckedChanged);
+            cbColorFilterEnabled.AutoSize = true;
+            cbColorFilterEnabled.Location = new Point(7, 26);
+            cbColorFilterEnabled.Margin = new Padding(4, 5, 4, 5);
+            cbColorFilterEnabled.Name = "cbColorFilterEnabled";
+            cbColorFilterEnabled.Size = new Size(85, 24);
+            cbColorFilterEnabled.TabIndex = 12;
+            cbColorFilterEnabled.Text = "Enabled";
+            cbColorFilterEnabled.UseVisualStyleBackColor = true;
+            cbColorFilterEnabled.CheckedChanged += cbColorFilterEnabled_CheckedChanged;
             // 
             // lblTolerance
             // 
-            this.lblTolerance.AutoSize = true;
-            this.lblTolerance.Location = new System.Drawing.Point(15, 240);
-            this.lblTolerance.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblTolerance.Name = "lblTolerance";
-            this.lblTolerance.Size = new System.Drawing.Size(79, 20);
-            this.lblTolerance.TabIndex = 13;
-            this.lblTolerance.Text = "Tolerance";
+            lblTolerance.AutoSize = true;
+            lblTolerance.Location = new Point(13, 240);
+            lblTolerance.Margin = new Padding(4, 0, 4, 0);
+            lblTolerance.Name = "lblTolerance";
+            lblTolerance.Size = new Size(73, 20);
+            lblTolerance.TabIndex = 13;
+            lblTolerance.Text = "Tolerance";
             // 
             // pnlFilterColor
             // 
-            this.pnlFilterColor.Location = new System.Drawing.Point(9, 100);
-            this.pnlFilterColor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.pnlFilterColor.Name = "pnlFilterColor";
-            this.pnlFilterColor.Size = new System.Drawing.Size(418, 55);
-            this.pnlFilterColor.TabIndex = 5;
-            this.pnlFilterColor.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlFilterColor_Paint);
+            pnlFilterColor.Location = new Point(8, 100);
+            pnlFilterColor.Margin = new Padding(4, 5, 4, 5);
+            pnlFilterColor.Name = "pnlFilterColor";
+            pnlFilterColor.Size = new Size(372, 55);
+            pnlFilterColor.TabIndex = 5;
+            pnlFilterColor.Paint += pnlFilterColor_Paint;
             // 
             // tbColorFilterFuzziness
             // 
-            this.tbColorFilterFuzziness.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbColorFilterFuzziness.LargeChange = 100;
-            this.tbColorFilterFuzziness.Location = new System.Drawing.Point(9, 191);
-            this.tbColorFilterFuzziness.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbColorFilterFuzziness.Maximum = 1000;
-            this.tbColorFilterFuzziness.Name = "tbColorFilterFuzziness";
-            this.tbColorFilterFuzziness.Size = new System.Drawing.Size(418, 56);
-            this.tbColorFilterFuzziness.SmallChange = 10;
-            this.tbColorFilterFuzziness.TabIndex = 3;
-            this.tbColorFilterFuzziness.TickFrequency = 8;
-            this.tbColorFilterFuzziness.Scroll += new System.EventHandler(this.tbColorFilterFuzziness_Scroll);
+            tbColorFilterFuzziness.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbColorFilterFuzziness.LargeChange = 100;
+            tbColorFilterFuzziness.Location = new Point(8, 191);
+            tbColorFilterFuzziness.Margin = new Padding(4, 5, 4, 5);
+            tbColorFilterFuzziness.Maximum = 1000;
+            tbColorFilterFuzziness.Name = "tbColorFilterFuzziness";
+            tbColorFilterFuzziness.Size = new Size(372, 56);
+            tbColorFilterFuzziness.SmallChange = 10;
+            tbColorFilterFuzziness.TabIndex = 3;
+            tbColorFilterFuzziness.TickFrequency = 8;
+            tbColorFilterFuzziness.Scroll += tbColorFilterFuzziness_Scroll;
             // 
             // tbM
             // 
-            this.tbM.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbM.LargeChange = 100;
-            this.tbM.Location = new System.Drawing.Point(9, 269);
-            this.tbM.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tbM.Maximum = 10000;
-            this.tbM.Name = "tbM";
-            this.tbM.Size = new System.Drawing.Size(418, 56);
-            this.tbM.SmallChange = 10;
-            this.tbM.TabIndex = 3;
-            this.tbM.TickFrequency = 8;
-            this.tbM.Scroll += new System.EventHandler(this.tbColorFilterFuzziness_Scroll);
+            tbM.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbM.LargeChange = 100;
+            tbM.Location = new Point(8, 269);
+            tbM.Margin = new Padding(4, 5, 4, 5);
+            tbM.Maximum = 10000;
+            tbM.Name = "tbM";
+            tbM.Size = new Size(372, 56);
+            tbM.SmallChange = 10;
+            tbM.TabIndex = 3;
+            tbM.TickFrequency = 8;
+            tbM.Scroll += tbColorFilterFuzziness_Scroll;
             // 
             // lblFuzziness
             // 
-            this.lblFuzziness.AutoSize = true;
-            this.lblFuzziness.Location = new System.Drawing.Point(15, 166);
-            this.lblFuzziness.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblFuzziness.Name = "lblFuzziness";
-            this.lblFuzziness.Size = new System.Drawing.Size(81, 20);
-            this.lblFuzziness.TabIndex = 13;
-            this.lblFuzziness.Text = "Fuzziness";
+            lblFuzziness.AutoSize = true;
+            lblFuzziness.Location = new Point(13, 166);
+            lblFuzziness.Margin = new Padding(4, 0, 4, 0);
+            lblFuzziness.Name = "lblFuzziness";
+            lblFuzziness.Size = new Size(70, 20);
+            lblFuzziness.TabIndex = 13;
+            lblFuzziness.Text = "Fuzziness";
             // 
             // lstChain
             // 
-            this.lstChain.DisplayMember = "Idx";
-            this.lstChain.FormattingEnabled = true;
-            this.lstChain.ItemHeight = 20;
-            this.lstChain.Location = new System.Drawing.Point(460, 37);
-            this.lstChain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.lstChain.Name = "lstChain";
-            this.lstChain.Size = new System.Drawing.Size(517, 424);
-            this.lstChain.TabIndex = 12;
-            this.lstChain.SelectedIndexChanged += new System.EventHandler(this.lstChain_SelectedIndexChanged);
+            lstChain.DisplayMember = "Idx";
+            lstChain.FormattingEnabled = true;
+            lstChain.Location = new Point(409, 37);
+            lstChain.Margin = new Padding(4, 5, 4, 5);
+            lstChain.Name = "lstChain";
+            lstChain.Size = new Size(460, 424);
+            lstChain.TabIndex = 12;
+            lstChain.SelectedIndexChanged += lstChain_SelectedIndexChanged;
             // 
             // btnSave
             // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(1078, 1097);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.btnSave.Size = new System.Drawing.Size(130, 31);
-            this.btnSave.TabIndex = 14;
-            this.btnSave.Text = "Save to";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSave.Location = new Point(958, 1011);
+            btnSave.Margin = new Padding(4, 5, 4, 5);
+            btnSave.Name = "btnSave";
+            btnSave.RightToLeft = RightToLeft.Yes;
+            btnSave.Size = new Size(116, 31);
+            btnSave.TabIndex = 14;
+            btnSave.Text = "Save to";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // lblModifications
             // 
-            this.lblModifications.AutoSize = true;
-            this.lblModifications.Location = new System.Drawing.Point(460, 15);
-            this.lblModifications.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblModifications.Name = "lblModifications";
-            this.lblModifications.Size = new System.Drawing.Size(102, 20);
-            this.lblModifications.TabIndex = 15;
-            this.lblModifications.Text = "Modifications";
+            lblModifications.AutoSize = true;
+            lblModifications.Location = new Point(409, 15);
+            lblModifications.Margin = new Padding(4, 0, 4, 0);
+            lblModifications.Name = "lblModifications";
+            lblModifications.Size = new Size(100, 20);
+            lblModifications.TabIndex = 15;
+            lblModifications.Text = "Modifications";
             // 
             // lblSourcePalette
             // 
-            this.lblSourcePalette.AutoSize = true;
-            this.lblSourcePalette.Location = new System.Drawing.Point(981, 12);
-            this.lblSourcePalette.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSourcePalette.Name = "lblSourcePalette";
-            this.lblSourcePalette.Size = new System.Drawing.Size(114, 20);
-            this.lblSourcePalette.TabIndex = 15;
-            this.lblSourcePalette.Text = "Source Palette";
+            lblSourcePalette.AutoSize = true;
+            lblSourcePalette.Location = new Point(876, 67);
+            lblSourcePalette.Margin = new Padding(4, 0, 4, 0);
+            lblSourcePalette.Name = "lblSourcePalette";
+            lblSourcePalette.Size = new Size(103, 20);
+            lblSourcePalette.TabIndex = 15;
+            lblSourcePalette.Text = "Source Palette";
             // 
             // tlpSourcePalette
             // 
-            this.tlpSourcePalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpSourcePalette.ColumnCount = 16;
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tlpSourcePalette.Location = new System.Drawing.Point(988, 92);
-            this.tlpSourcePalette.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tlpSourcePalette.Name = "tlpSourcePalette";
-            this.tlpSourcePalette.RowCount = 16;
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpSourcePalette.Size = new System.Drawing.Size(411, 426);
-            this.tlpSourcePalette.TabIndex = 1;
-            this.tlpSourcePalette.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tlpSourcePalette_CellPaint);
-            this.tlpSourcePalette.Click += new System.EventHandler(this.tlpSourcePalette_Click);
+            tlpSourcePalette.ColumnCount = 16;
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 23F));
+            tlpSourcePalette.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 25F));
+            tlpSourcePalette.Location = new Point(878, 92);
+            tlpSourcePalette.Margin = new Padding(4, 5, 4, 5);
+            tlpSourcePalette.Name = "tlpSourcePalette";
+            tlpSourcePalette.RowCount = 16;
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
+            tlpSourcePalette.Size = new Size(365, 426);
+            tlpSourcePalette.TabIndex = 1;
+            tlpSourcePalette.CellPaint += tlpSourcePalette_CellPaint;
+            tlpSourcePalette.Click += tlpSourcePalette_Click;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(981, 523);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(109, 20);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Result Palette";
+            label7.AutoSize = true;
+            label7.Location = new Point(872, 523);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(98, 20);
+            label7.TabIndex = 15;
+            label7.Text = "Result Palette";
             // 
             // cbTargetPalette
             // 
-            this.cbTargetPalette.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbTargetPalette.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTargetPalette.FormattingEnabled = true;
-            this.cbTargetPalette.Items.AddRange(new object[] {
-            "Palette 1",
-            "Palette 2",
-            "Palette 3",
-            "Palette 4",
-            "Palette 5",
-            "Palette 6",
-            "Palette 7",
-            "Palette 8"});
-            this.cbTargetPalette.Location = new System.Drawing.Point(1218, 1095);
-            this.cbTargetPalette.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbTargetPalette.Name = "cbTargetPalette";
-            this.cbTargetPalette.Size = new System.Drawing.Size(180, 28);
-            this.cbTargetPalette.TabIndex = 16;
+            cbTargetPalette.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            cbTargetPalette.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbTargetPalette.FormattingEnabled = true;
+            cbTargetPalette.Items.AddRange(new object[] { "Palette 1", "Palette 2", "Palette 3", "Palette 4", "Palette 5", "Palette 6", "Palette 7", "Palette 8" });
+            cbTargetPalette.Location = new Point(1083, 1009);
+            cbTargetPalette.Margin = new Padding(4, 5, 4, 5);
+            cbTargetPalette.Name = "cbTargetPalette";
+            cbTargetPalette.Size = new Size(160, 28);
+            cbTargetPalette.TabIndex = 16;
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1413, 1146);
-            this.Controls.Add(this.cbTargetPalette);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.lblSourcePalette);
-            this.Controls.Add(this.lblModifications);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.lstChain);
-            this.Controls.Add(this.btnOpen);
-            this.Controls.Add(this.tlpSourcePalette);
-            this.Controls.Add(this.rbPalette8);
-            this.Controls.Add(this.rbPalette7);
-            this.Controls.Add(this.rbPalette6);
-            this.Controls.Add(this.rbPalette5);
-            this.Controls.Add(this.rbPalette4);
-            this.Controls.Add(this.rbPalette3);
-            this.Controls.Add(this.rbPalette2);
-            this.Controls.Add(this.rbPalette1);
-            this.Controls.Add(this.gbColorFilter);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.tlpResultPalette);
-            this.Controls.Add(this.lblImageHint);
-            this.Controls.Add(this.pbBitmap);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "frmMain";
-            this.Text = "frmMain";
-            ((System.ComponentModel.ISupportInitialize)(this.pbBitmap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbRed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbGreen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbBlue)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbH)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbL)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbS)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.gbColorFilter.ResumeLayout(false);
-            this.gbColorFilter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tbColorFilterFuzziness)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbM)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1256, 1060);
+            Controls.Add(cbTargetPalette);
+            Controls.Add(label7);
+            Controls.Add(lblSourcePalette);
+            Controls.Add(lblModifications);
+            Controls.Add(btnSave);
+            Controls.Add(lstChain);
+            Controls.Add(btnOpen);
+            Controls.Add(tlpSourcePalette);
+            Controls.Add(rbPalette8);
+            Controls.Add(rbPalette7);
+            Controls.Add(rbPalette6);
+            Controls.Add(rbPalette5);
+            Controls.Add(rbPalette4);
+            Controls.Add(rbPalette3);
+            Controls.Add(rbPalette2);
+            Controls.Add(rbPalette1);
+            Controls.Add(gbColorFilter);
+            Controls.Add(groupBox1);
+            Controls.Add(tlpResultPalette);
+            Controls.Add(pbBitmap);
+            Margin = new Padding(4, 5, 4, 5);
+            Name = "frmMain";
+            Text = "frmMain";
+            ((System.ComponentModel.ISupportInitialize)pbBitmap).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbRed).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbGreen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbBlue).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbH).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbL).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbS).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            gbColorFilter.ResumeLayout(false);
+            gbColorFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tbColorFilterFuzziness).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbM).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -757,7 +726,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TrackBar tbL;
         private System.Windows.Forms.TrackBar tbS;
-        private System.Windows.Forms.Label lblImageHint;
         private System.Windows.Forms.Button btnLoadPalettes;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbPalette1;

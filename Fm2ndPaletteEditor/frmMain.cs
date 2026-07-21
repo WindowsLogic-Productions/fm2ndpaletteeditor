@@ -11,11 +11,9 @@ namespace Fm2ndPaletteEditor
 {
     public partial class frmMain : Form
     {
-        public PaletteEditService Service { get; set; } = new PaletteEditService();
-
-        public Bitmap _bitmap { get; set; }
-        public Color[] _bitmapOriginalPalette { get; set; }
-        public Color[] _palette { get; set; }
+        private PaletteEditService _service { get; set; } = new PaletteEditService();
+        private Color[]? _bitmapOriginalPalette { get; set; }
+        private Color[]? _palette { get; set; }
         public ColorChange CurrentColorChange
         {
             get => (ColorChange)lstChain.SelectedItem;
@@ -28,9 +26,9 @@ namespace Fm2ndPaletteEditor
             this.DoubleBuffered = true;
             SetDoubleBuffered(this.tlpResultPalette);
 
-            lstChain.DataSource = Service.Chain.ColorChanges;
+            lstChain.DataSource = _service.Chain.ColorChanges;
             lstChain.DisplayMember = "Idx";
-            lstChain.SelectedItem = Service.Chain.ColorChanges[0];
+            lstChain.SelectedItem = _service.Chain.ColorChanges[0];
 
             cbTargetPalette.SelectedIndex = 0;
         }
@@ -61,54 +59,37 @@ namespace Fm2ndPaletteEditor
 
         #endregion
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private Bitmap loadBitmap(int i)
         {
-            using (var dialog = new OpenFileDialog())
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        loadImage(dialog.FileName);
+            var bitmapStream = _service.Player.LoadImage(i, _currentPalette);
+            var bitmap = (Bitmap)Bitmap.FromStream(bitmapStream);
+            //_bitmap = convertToIndexed(bitmap);
 
-                        lblImageHint.Visible = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error: {ex.Message}");
-                    }
-                }
-            }
-        }
-
-        private void loadImage(string filename)
-        {
-            var image = Image.FromFile(filename);
-            var bitmap = new Bitmap(image);
-            _bitmap = convertToIndexed(bitmap);
-            pbBitmap.Image = _bitmap;
-            var transpIdx = Array.FindIndex(_bitmap.Palette.Entries, x => x.ToArgb() == Color.Black.ToArgb());
             // set alpha to transparent
-            _bitmap.Palette.Entries[transpIdx] = Color.FromArgb(255, 0, 0, 0);
-            _bitmap.Palette = _bitmap.Palette;
+            var transpIdx = Array.FindIndex(bitmap.Palette.Entries, x => x.ToArgb() == Color.Black.ToArgb());
+            bitmap.Palette.Entries[transpIdx] = Color.FromArgb(255, 0, 0, 0);
+            bitmap.Palette = bitmap.Palette;
 
-            _bitmapOriginalPalette = (Color[])_bitmap.Palette.Entries.Clone();
-            applyTransformation();
+            _bitmapOriginalPalette = bitmap.Palette.Entries;
+            pbBitmap.Image = bitmap;
+
+            return bitmap;
         }
 
         private void applyTransformation()
         {
-            if (_bitmap != null)
-            {
-                ColorPalette pal = _bitmap.Palette;
-                var entries = pal.Entries;
-                Service.TransformPalette(entries, _bitmapOriginalPalette);
-                _bitmap.Palette = pal;
-            }
-            if (Service.Player != null)
-            {
-                _palette = Service.TransformPalette(Service.Player.Palettes[_currentPalette]);
-            }
+            if (_service.Player == null)
+                return;
+
+            var bitmap = (Bitmap)pbBitmap.Image!;
+
+            ColorPalette pal = bitmap.Palette;// this returns a clone of the palette, so it's crucial to do it like this
+            var entries = pal.Entries;
+            _service.ApplyChainColorChanges(entries, _bitmapOriginalPalette!);
+            bitmap.Palette = pal;
+
+            _palette = _service.CloneAndApplyChainColorChanges(_service.Player.Palettes[_currentPalette].Colors);
+
             this.Refresh();
         }
 
@@ -125,7 +106,10 @@ namespace Fm2ndPaletteEditor
 
         private void tlpSourcePalette_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            paintPaletteCell(e, Service.Player?.Palettes[_currentPalette]);
+            if (_service.Player == null)
+                return;
+
+            paintPaletteCell(e, _service.Player.Palettes[_currentPalette].Colors);
         }
 
         private void tlpResultPalette_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
@@ -142,7 +126,16 @@ namespace Fm2ndPaletteEditor
                 if (color.A == 255)
                 {
                     using (SolidBrush brush = new SolidBrush(color))
+                    {
                         e.Graphics.FillRectangle(brush, e.CellBounds);
+                        if (CurrentColorChange.ColorFilter.PaletteIdx == idx)
+                        {
+                            var pen = color.GetBrightness() > 0.5 ? Pens.Black : Pens.White;
+                            // fix cell bounds to map correcty to the cell
+                            var rect = new Rectangle(e.CellBounds.Left, e.CellBounds.Top, e.CellBounds.Width - 1, e.CellBounds.Height - 1);
+                            e.Graphics.DrawRectangle(pen, rect);
+                        }
+                    }
                 }
                 else
                 {
@@ -207,6 +200,7 @@ namespace Fm2ndPaletteEditor
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     open(dialog.FileName);
+                    loadBitmap(10);
                     applyTransformation();
                 }
             }
@@ -216,7 +210,7 @@ namespace Fm2ndPaletteEditor
         {
             try
             {
-                Service.Open(fileName);
+                _service.Open(fileName);
             }
             catch (Exception ex)
             {
@@ -228,14 +222,14 @@ namespace Fm2ndPaletteEditor
         {
             var targetPalette = cbTargetPalette.SelectedIndex;
 
-            var confirmResult = MessageBox.Show($"The Result Palette will replace the Palette {targetPalette + 1} of {Path.GetFileName(Service.Player.FileName)}",
+            var confirmResult = MessageBox.Show($"The Result Palette will replace the Palette {targetPalette + 1} of {Path.GetFileName(_service.Player.FileName)}",
                                      "Confirm Save",
                                      MessageBoxButtons.OKCancel);
             if (confirmResult == DialogResult.OK)
             {
                 try
                 {
-                    Service.Player.SavePalette(_palette, targetPalette);
+                    _service.Player.SavePalette(_palette!, targetPalette);
                     applyTransformation();
                 }
                 catch (Exception ex)
@@ -326,18 +320,35 @@ namespace Fm2ndPaletteEditor
 
         private void tlpSourcePalette_Click(object sender, EventArgs e)
         {
-            if (Service.Player != null)
+            if (_service.Player == null)
+                return;
+            selectCurrentColorChangeColor(tlpSourcePalette);
+        }
+
+        private void tlpResultPalette_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (_service.Player == null)
+                return;
+            selectCurrentColorChangeColor(tlpResultPalette);
+        }
+        
+        private void selectCurrentColorChangeColor(TableLayoutPanel tlp)
+        {
+            var cellPos = GetRowColIndex(
+                tlp,
+                tlp.PointToClient(Cursor.Position));
+            if (cellPos.HasValue)
             {
-                var cellPos = GetRowColIndex(
-                    tlpSourcePalette,
-                    tlpSourcePalette.PointToClient(Cursor.Position));
-                if (cellPos.HasValue)
-                {
-                    var idx = cellToPaletteIdx(cellPos.Value.Y, cellPos.Value.X);
-                    CurrentColorChange.ColorFilter.Color = Service.Player.Palettes[_currentPalette][idx];
-                    applyTransformation();
-                }
+                var idx = cellToPaletteIdx(cellPos.Value.Y, cellPos.Value.X);
+                selectCurrentColorChangeColor(idx);
             }
+        }
+
+        private void selectCurrentColorChangeColor(int idx)
+        {
+            CurrentColorChange.ColorFilter.Color = _service.Player.Palettes[_currentPalette].Colors[idx];
+            CurrentColorChange.ColorFilter.PaletteIdx = idx;
+            applyTransformation();
         }
 
         private void tbColorFilterFuzziness_Scroll(object sender, EventArgs e)
@@ -355,8 +366,8 @@ namespace Fm2ndPaletteEditor
 
         private void btnAddColorChange_Click(object sender, EventArgs e)
         {
-            this.Service.Chain.ColorChanges.Add(new ColorChange());
-            lstChain.DataSource = Service.Chain.ColorChanges;
+            this._service.Chain.ColorChanges.Add(new ColorChange());
+            lstChain.DataSource = _service.Chain.ColorChanges;
             applyTransformation();
         }
 
@@ -390,6 +401,60 @@ namespace Fm2ndPaletteEditor
             tbGreen.Value = 0;
             tbBlue.Value = 0;
             tb_Scroll(sender, e);
+        }
+
+        private void pbBitmap_Click(object sender, EventArgs e)
+        {
+            if (pbBitmap.Image == null) return;
+
+            MouseEventArgs me = (MouseEventArgs)e;
+            var point = this.mapPbClickToBitmapPoint(me.Location);
+            if (point.HasValue)
+            {
+                Bitmap bitmap = (Bitmap)pbBitmap.Image;
+                int paletteIndex = bitmap.GetPixelPaletteIndex(point.Value.X, point.Value.Y);
+                selectCurrentColorChangeColor(paletteIndex);
+            }
+        }
+
+        private Point? mapPbClickToBitmapPoint(Point location)
+        {
+            int imgWidth = pbBitmap.Image!.Width;
+            int imgHeight = pbBitmap.Image.Height;
+            int pbWidth = pbBitmap.Width;
+            int pbHeight = pbBitmap.Height;
+
+            // Find the correct scale factor (the smallest between the two axes)
+            float ratioX = (float)pbWidth / imgWidth;
+            float ratioY = (float)pbHeight / imgHeight;
+            float ratio = Math.Min(ratioX, ratioY);
+
+            // Calculate the actual size of the image rendered on screen
+            int targetWidth = (int)(imgWidth * ratio);
+            int targetHeight = (int)(imgHeight * ratio);
+
+            // Calculate the initial offset (where the image pixels start)
+            int leftOffset = (pbWidth - targetWidth) / 2;
+            int topOffset = (pbHeight - targetHeight) / 2;
+
+            // Subtract the offset from the mouse click
+            int relativeX = location.X - leftOffset;
+            int relativeY = location.Y - topOffset;
+
+            // Check if the click is within the actual image or on the empty bands
+            if (relativeX >= 0 && relativeX < targetWidth && relativeY >= 0 && relativeY < targetHeight)
+            {
+                // Map finally to the original bitmap pixel
+                int bitmapX = (int)(relativeX / ratio);
+                int bitmapY = (int)(relativeY / ratio);
+
+                // Safety for rounding
+                bitmapX = Math.Clamp(bitmapX, 0, imgWidth - 1);
+                bitmapY = Math.Clamp(bitmapY, 0, imgHeight - 1);
+
+                return new Point(bitmapX, bitmapY);
+            }
+            return null;
         }
     }
 }

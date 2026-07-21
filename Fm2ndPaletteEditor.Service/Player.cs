@@ -1,4 +1,8 @@
-﻿using MoreLinq;
+﻿using Fm2ndParser;
+using Fm2ndParser.Character;
+using Fm2ndParser.Common;
+using Fm2ndParser.Parsers;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,147 +17,62 @@ namespace Fm2ndPaletteEditor.Service
     public class Player
     {
         public string FileName;
-        FileStream _stream;
-        int[] _palettePositions;
-        public Color[][] Palettes;
+        public Palette[] Palettes;
+        private PlayerParser _parser;
+        private PlayerFile _player;
 
         public Player(string filename)
         {
             this.FileName = filename;
-            try
-            {
-                var stream = File.Open(this.FileName, FileMode.Open, FileAccess.ReadWrite);
+            _parser = new PlayerParser(filename, null);
+            _player = _parser.Parse();
 
-                this._stream = stream;
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    stream.CopyTo(ms);
-                    var data = ms.ToArray();
-                    validatePlayer(data);
-                    Palettes = loadPalettes(data);
-                }
-            }
-            catch (Exception e)
-            {
-                this.Close();
-                throw e;
-            }
+            Palettes = _player.GlobalPalettes.ToArray();
         }
 
-        private void Close()
+        public Stream LoadImage(int i, int paletteIndex)
         {
-            FileName = null;
-            _palettePositions = null;
-            Palettes = null;
-            if (_stream != null)
-            {
-                _stream.Close();
-            }
+            var image = _player.Images.ElementAt(i);
+            var palette = _player.GlobalPalettes.ElementAt(paletteIndex);
+
+            return ParseCommand.ToIndexedBmpStream(image, palette);
         }
 
-        private void validatePlayer(byte[] data)
+        public void SavePalette(Color[] paletteColors, int index)
         {
-            var word = data.Slice(0, 7).ToArray();
-            var type = Encoding.Default.GetString(word);
-            if (type.StartsWith("2DKGT2G"))
-                throw new LockedFileException();
+            var palette = _player.GlobalPalettes.ElementAt(index);
+            palette.Data = ParseCommand.ToFM2kPalette(paletteColors);
+            palette.Colors = paletteColors.Clone() as Color[];
+
+            // backup file before write
+            var backupFilename = getBackupFilename(FileName);
+            File.Copy(FileName, backupFilename, false);
+
+            using var stream = File.OpenWrite(FileName);
+            using var writer = new BinaryWriter(stream);
+            writer.Seek(palette.Position, SeekOrigin.Begin);
+            writer.Write(palette.Data);
         }
 
-        private Color[][] loadPalettes(byte[] data)
+        private string getBackupFilename(string originalFilename)
         {
-            _palettePositions = readPalettesPositions(data);
+            // Estrae il percorso della cartella (es. "C:\MieiFile")
+            string directory = Path.GetDirectoryName(originalFilename) ?? string.Empty;
 
-            var palettesArray = _palettePositions.Select(x => data.Skip(x).Take(256 * 4));
+            // Estrae il nome del file senza estensione (es. "documento")
+            string fileNameWithoutExt = Path.GetFileNameWithoutExtension(originalFilename);
 
-            var palettes = palettesArray
-                .Select(p => p.Batch(4)
-                    .Select(c => parseFM2kColor(c.ToArray())).ToArray()
-                ).ToArray();
+            // Estrae l'estensione (es. ".dat")
+            string extension = Path.GetExtension(originalFilename);
 
-            return palettes;
-        }
+            // Crea un timestamp preciso al secondo (es. "20260719_130132")
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
-        private int[] readPalettesPositions(byte[] data)
-        {
-            var positions = data.Locate();
+            // Compone il nuovo nome: "documento_backup_20260719_130132.dat"
+            string backupFileName = $"{fileNameWithoutExt}_backup_{timestamp}{extension}";
 
-            if (positions.Count() != 8)
-            {
-                throw new Exception("No correct palette format found");
-            }
-            return positions.Select(x => x + 32).ToArray();
-        }
-
-        public void SavePalette(Color[] palette, int targetNumber)
-        {
-            this.Palettes[targetNumber] = palette;
-            savePalette(_stream, palette, _palettePositions[targetNumber]);
-        }
-
-        private void savePalette(Stream stream, Color[] palette, long position)
-        {
-            stream.Position = position;
-            var paletteBytes = toFM2kPalette(palette);
-            stream.Write(paletteBytes, 0, paletteBytes.Length);
-        }
-
-        private byte[] toFM2kPalette(Color[] colors)
-        {
-            var result = colors.SelectMany(x => toFM2kColor(x)).ToArray();
-            return result;
-        }
-
-        private byte[] toFM2kColor(Color color)
-        {
-            if (color.A == 255)
-            {
-                var r = (byte)Math.Min((int)Math.Round((double)color.R / 8) * 8, 255);
-                var g = (byte)Math.Min((int)Math.Round((double)color.G / 8) * 8, 255);
-                var b = (byte)Math.Min((int)Math.Round((double)color.B / 8) * 8, 255);
-
-                return new byte[] { b, g, r, 1 };
-            }
-            else
-            {
-                return new byte[] { 0, 0, 0, 0 };
-            }
-        }
-
-        private string toFM2kColorString(Color color)
-        {
-            var colorArray = toFM2kColor(color);
-            var result = string.Join(" ", colorArray.Select(x => x.ToString("X2")));
-
-            return result + " ";
-        }
-
-        private Color parseFM2kColor(byte[] color)
-        {
-            if (color.Count() != 4 && color[3] != 1 && color[3] != 0)
-                throw new Exception("Wrong format");
-
-            var b = color[0];
-            var g = color[1];
-            var r = color[2];
-
-            //if (r % 8 != 0 || g % 8 != 0 || b % 8 != 0)
-            //    throw new Exception("Wrong format");
-
-            var a = color[3] == 0 ? 0 : 255;
-
-            var result = Color.FromArgb(a, r, g, b);
-            return result;
-        }
-
-        private Color parseFM2kColor(string colorTxt)
-        {
-            var rgba = colorTxt
-                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(x => byte.Parse(x, NumberStyles.HexNumber))
-                .ToArray();
-
-            return parseFM2kColor(rgba);
+            // Combina la cartella originale con il nuovo nome file
+            return Path.Combine(directory, backupFileName);
         }
     }
 }

@@ -82,16 +82,10 @@ namespace Fm2ndPaletteEditor.Service
             return result;
         }
 
-        public Color[][] TransformPalettes(Color[][] palette)
-        {
-            var result = palette.Select(x => TransformPalette(x)).ToArray();
-            return result;
-        }
-
-        public Color[] TransformPalette(Color[] palette)
+        public Color[] CloneAndApplyChainColorChanges(Color[] palette)
         {
             var result = (Color[])palette.Clone();
-            TransformPalette(result, palette);
+            ApplyChainColorChanges(result, palette);
             return result;
         }
 
@@ -180,7 +174,7 @@ namespace Fm2ndPaletteEditor.Service
             return deltaE / 255;
         }
 
-        public void TransformPalette(Color[] targetPalette, Color[] originalPalette)
+        public void ApplyChainColorChanges(Color[] targetPalette, Color[] originalPalette)
         {
             for (int i = 0; i < originalPalette.Length; i++)
             {

@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Fm2ndPaletteEditor
 {
     internal static class Program
@@ -10,7 +12,8 @@ namespace Fm2ndPaletteEditor
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
+            ApplicationConfiguration.Initialize();            
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Application.Run(new frmMain());
         }
     }

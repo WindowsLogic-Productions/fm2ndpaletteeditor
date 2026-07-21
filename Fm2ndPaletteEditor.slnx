@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="../fm2ndparser/Fm2ndParser/Fm2ndParser.csproj" />
   <Project Path="Fm2ndPaletteEditor.Service/Fm2ndPaletteEditor.Service.csproj" />
   <Project Path="Fm2ndPaletteEditor/Fm2ndPaletteEditor.csproj" />
 </Solution>
