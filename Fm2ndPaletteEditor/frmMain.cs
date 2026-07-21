@@ -1,4 +1,5 @@
-﻿using Fm2ndPaletteEditor.Service;
+﻿using ColorMine.ColorSpaces;
+using Fm2ndPaletteEditor.Service;
 using ImageProcessor.Imaging.Quantizers;
 using System;
 using System.Drawing;
@@ -379,10 +380,11 @@ namespace Fm2ndPaletteEditor
             applyTransformation();
         }
 
-        private void tbColorFilterFuzziness_Scroll(object sender, EventArgs e)
+        private void tbColorFilterRange_Scroll(object sender, EventArgs e)
         {
-            CurrentColorChange.ColorFilter.Fuzziness = tbColorFilterFuzziness.Value;
+            CurrentColorChange.ColorFilter.Range = tbColorFilterRange.Value;
             CurrentColorChange.ColorFilter.M = tbM.Value;
+            CurrentColorChange.ColorFilter.Comparison = Enum.Parse<ColorComparison>(cbComparisonMethod.Text);
             applyTransformation();
         }
 
@@ -409,7 +411,7 @@ namespace Fm2ndPaletteEditor
             tbS.Value = CurrentColorChange.S;
 
             cbColorFilterEnabled.Checked = CurrentColorChange.ColorFilter.Enabled;
-            tbColorFilterFuzziness.Value = (int)CurrentColorChange.ColorFilter.Fuzziness;
+            tbColorFilterRange.Value = (int)CurrentColorChange.ColorFilter.Range;
             cbColorChangeEnabled.Checked = CurrentColorChange.Enabled;
             applyTransformation();
         }

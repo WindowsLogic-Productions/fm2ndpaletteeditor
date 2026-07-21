@@ -56,15 +56,17 @@
             rbPalette8 = new RadioButton();
             btnOpen = new Button();
             gbColorFilter = new GroupBox();
+            cbComparisonMethod = new ComboBox();
+            label9 = new Label();
             btnCopy = new Button();
             lblColorHex = new Label();
             lblColor = new Label();
             cbColorFilterEnabled = new CheckBox();
-            lblTolerance = new Label();
+            lblBlend = new Label();
             pnlFilterColor = new Panel();
-            tbColorFilterFuzziness = new TrackBar();
+            tbColorFilterRange = new TrackBar();
             tbM = new TrackBar();
-            lblFuzziness = new Label();
+            lblColorFilterRange = new Label();
             lstChain = new ListBox();
             btnSave = new Button();
             lblModifications = new Label();
@@ -86,7 +88,7 @@
             ((System.ComponentModel.ISupportInitialize)tbS).BeginInit();
             groupBox1.SuspendLayout();
             gbColorFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tbColorFilterFuzziness).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tbColorFilterRange).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tbM).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numCurrentImage).BeginInit();
             SuspendLayout();
@@ -465,15 +467,17 @@
             // 
             // gbColorFilter
             // 
+            gbColorFilter.Controls.Add(cbComparisonMethod);
+            gbColorFilter.Controls.Add(label9);
             gbColorFilter.Controls.Add(btnCopy);
             gbColorFilter.Controls.Add(lblColorHex);
             gbColorFilter.Controls.Add(lblColor);
             gbColorFilter.Controls.Add(cbColorFilterEnabled);
-            gbColorFilter.Controls.Add(lblTolerance);
+            gbColorFilter.Controls.Add(lblBlend);
             gbColorFilter.Controls.Add(pnlFilterColor);
-            gbColorFilter.Controls.Add(tbColorFilterFuzziness);
+            gbColorFilter.Controls.Add(tbColorFilterRange);
             gbColorFilter.Controls.Add(tbM);
-            gbColorFilter.Controls.Add(lblFuzziness);
+            gbColorFilter.Controls.Add(lblColorFilterRange);
             gbColorFilter.Location = new Point(13, 471);
             gbColorFilter.Margin = new Padding(4, 5, 4, 5);
             gbColorFilter.Name = "gbColorFilter";
@@ -482,6 +486,27 @@
             gbColorFilter.TabIndex = 8;
             gbColorFilter.TabStop = false;
             gbColorFilter.Text = "Filter";
+            // 
+            // cbComparisonMethod
+            // 
+            cbComparisonMethod.FormattingEnabled = true;
+            cbComparisonMethod.Items.AddRange(new object[] { "Cie1976", "Cie94", "CieDe2000", "Cmc" });
+            cbComparisonMethod.Location = new Point(7, 185);
+            cbComparisonMethod.Name = "cbComparisonMethod";
+            cbComparisonMethod.Size = new Size(151, 28);
+            cbComparisonMethod.TabIndex = 20;
+            cbComparisonMethod.Text = "Cie1976";
+            cbComparisonMethod.SelectedIndexChanged += tbColorFilterRange_Scroll;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(8, 162);
+            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(145, 20);
+            label9.TabIndex = 19;
+            label9.Text = "Comparison method";
             // 
             // btnCopy
             // 
@@ -527,15 +552,15 @@
             cbColorFilterEnabled.UseVisualStyleBackColor = true;
             cbColorFilterEnabled.CheckedChanged += cbColorFilterEnabled_CheckedChanged;
             // 
-            // lblTolerance
+            // lblBlend
             // 
-            lblTolerance.AutoSize = true;
-            lblTolerance.Location = new Point(13, 240);
-            lblTolerance.Margin = new Padding(4, 0, 4, 0);
-            lblTolerance.Name = "lblTolerance";
-            lblTolerance.Size = new Size(73, 20);
-            lblTolerance.TabIndex = 13;
-            lblTolerance.Text = "Tolerance";
+            lblBlend.AutoSize = true;
+            lblBlend.Location = new Point(8, 290);
+            lblBlend.Margin = new Padding(4, 0, 4, 0);
+            lblBlend.Name = "lblBlend";
+            lblBlend.Size = new Size(47, 20);
+            lblBlend.TabIndex = 13;
+            lblBlend.Text = "Blend";
             // 
             // pnlFilterColor
             // 
@@ -546,25 +571,25 @@
             pnlFilterColor.TabIndex = 5;
             pnlFilterColor.Paint += pnlFilterColor_Paint;
             // 
-            // tbColorFilterFuzziness
+            // tbColorFilterRange
             // 
-            tbColorFilterFuzziness.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbColorFilterFuzziness.LargeChange = 100;
-            tbColorFilterFuzziness.Location = new Point(8, 191);
-            tbColorFilterFuzziness.Margin = new Padding(4, 5, 4, 5);
-            tbColorFilterFuzziness.Maximum = 1000;
-            tbColorFilterFuzziness.Name = "tbColorFilterFuzziness";
-            tbColorFilterFuzziness.Size = new Size(372, 56);
-            tbColorFilterFuzziness.SmallChange = 10;
-            tbColorFilterFuzziness.TabIndex = 3;
-            tbColorFilterFuzziness.TickFrequency = 8;
-            tbColorFilterFuzziness.Scroll += tbColorFilterFuzziness_Scroll;
+            tbColorFilterRange.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbColorFilterRange.LargeChange = 100;
+            tbColorFilterRange.Location = new Point(3, 241);
+            tbColorFilterRange.Margin = new Padding(4, 5, 4, 5);
+            tbColorFilterRange.Maximum = 1000;
+            tbColorFilterRange.Name = "tbColorFilterRange";
+            tbColorFilterRange.Size = new Size(372, 56);
+            tbColorFilterRange.SmallChange = 10;
+            tbColorFilterRange.TabIndex = 3;
+            tbColorFilterRange.TickFrequency = 8;
+            tbColorFilterRange.Scroll += tbColorFilterRange_Scroll;
             // 
             // tbM
             // 
             tbM.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tbM.LargeChange = 100;
-            tbM.Location = new Point(8, 269);
+            tbM.Location = new Point(3, 319);
             tbM.Margin = new Padding(4, 5, 4, 5);
             tbM.Maximum = 10000;
             tbM.Name = "tbM";
@@ -572,17 +597,17 @@
             tbM.SmallChange = 10;
             tbM.TabIndex = 3;
             tbM.TickFrequency = 8;
-            tbM.Scroll += tbColorFilterFuzziness_Scroll;
+            tbM.Scroll += tbColorFilterRange_Scroll;
             // 
-            // lblFuzziness
+            // lblColorFilterRange
             // 
-            lblFuzziness.AutoSize = true;
-            lblFuzziness.Location = new Point(13, 166);
-            lblFuzziness.Margin = new Padding(4, 0, 4, 0);
-            lblFuzziness.Name = "lblFuzziness";
-            lblFuzziness.Size = new Size(70, 20);
-            lblFuzziness.TabIndex = 13;
-            lblFuzziness.Text = "Fuzziness";
+            lblColorFilterRange.AutoSize = true;
+            lblColorFilterRange.Location = new Point(8, 216);
+            lblColorFilterRange.Margin = new Padding(4, 0, 4, 0);
+            lblColorFilterRange.Name = "lblColorFilterRange";
+            lblColorFilterRange.Size = new Size(51, 20);
+            lblColorFilterRange.TabIndex = 13;
+            lblColorFilterRange.Text = "Range";
             // 
             // lstChain
             // 
@@ -774,7 +799,7 @@
             groupBox1.PerformLayout();
             gbColorFilter.ResumeLayout(false);
             gbColorFilter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tbColorFilterFuzziness).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tbColorFilterRange).EndInit();
             ((System.ComponentModel.ISupportInitialize)tbM).EndInit();
             ((System.ComponentModel.ISupportInitialize)numCurrentImage).EndInit();
             ResumeLayout(false);
@@ -814,16 +839,16 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.GroupBox gbColorFilter;
         private System.Windows.Forms.Panel pnlFilterColor;
-        private System.Windows.Forms.TrackBar tbColorFilterFuzziness;
+        private System.Windows.Forms.TrackBar tbColorFilterRange;
         private System.Windows.Forms.CheckBox cbColorFilterEnabled;
         private System.Windows.Forms.ListBox lstChain;
         private System.Windows.Forms.CheckBox cbColorChangeEnabled;
         private System.Windows.Forms.TrackBar tbM;
         private System.Windows.Forms.Button btnColorChangeReset;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Label lblFuzziness;
+        private System.Windows.Forms.Label lblColorFilterRange;
         private System.Windows.Forms.Label lblColor;
-        private System.Windows.Forms.Label lblTolerance;
+        private System.Windows.Forms.Label lblBlend;
         private System.Windows.Forms.Label lblModifications;
         private System.Windows.Forms.Label lblSourcePalette;
         private System.Windows.Forms.TableLayoutPanel tlpSourcePalette;
@@ -836,6 +861,8 @@
         private Label label8;
         private ToolTip toolTip1;
         private Label lblLoadAdvice;
+        private Label label9;
+        private ComboBox cbComparisonMethod;
     }
 }
 

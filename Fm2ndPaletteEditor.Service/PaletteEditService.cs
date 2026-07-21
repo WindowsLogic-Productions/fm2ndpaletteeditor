@@ -10,6 +10,7 @@ namespace Fm2ndPaletteEditor.Service
 {
     public class PaletteEditService
     {
+        private IColorSpaceComparison comparison;
 
         [DllImport("shlwapi.dll")]
         public static extern int ColorHLSToRGB(int H, int L, int S);
@@ -73,13 +74,39 @@ namespace Fm2ndPaletteEditor.Service
         private double calculateMultiplier(Color color, ColorFilter filter)
         {
             // y=1-m(x-f)
-            var d = distance(filter.Color, color);
-            var f = filter.Fuzziness / 1000;
+            var d = distance(filter.Color, color, getComparison(filter));
+            if (double.IsNaN(d))
+                d = 1;
+
+            var f = filter.Range / 1000;
             var m = 1000 - (filter.M / 10);
 
             var result = 1 - (m * (d - f));
             result = minMax(result, 1);
             return result;
+        }
+
+        private IColorSpaceComparison getComparison(ColorFilter filter)
+        {
+            switch(filter.Comparison)
+            {
+                case ColorComparison.Cie1976:
+                    comparison = new Cie1976Comparison();
+                    break;
+                case ColorComparison.Cie94:
+                    comparison = new Cie94Comparison();
+                    break;
+                case ColorComparison.CieDe2000:
+                    comparison = new CieDe2000Comparison();
+                    break;
+                case ColorComparison.Cmc:
+                    comparison = new CmcComparison();
+                    break;
+                default:
+                    comparison = new Cie1976Comparison();
+                    break;
+            }
+            return comparison;
         }
 
         public Color[] CloneAndApplyChainColorChanges(Color[] palette)
@@ -165,12 +192,12 @@ namespace Fm2ndPaletteEditor.Service
 
         #endregion
 
-        double distance(Color c1, Color c2)
+        double distance(Color c1, Color c2, IColorSpaceComparison comparizon)
         {
             var a = new Rgb { R = c1.R, G = c1.G, B = c1.B };
             var b = new Rgb { R = c2.R, G = c2.G, B = c2.B };
 
-            var deltaE = a.Compare(b, new Cie1976Comparison());
+            var deltaE = a.Compare(b, comparison);
             return deltaE / 255;
         }
 
