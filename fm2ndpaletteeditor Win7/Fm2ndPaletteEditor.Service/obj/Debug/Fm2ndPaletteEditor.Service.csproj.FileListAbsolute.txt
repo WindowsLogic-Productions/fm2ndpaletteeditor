@@ -1,0 +1,9 @@
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\bin\Debug\Fm2ndPaletteEditor.Service.exe.config
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\bin\Debug\Fm2ndPaletteEditor.Service.exe
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\bin\Debug\Fm2ndPaletteEditor.Service.pdb
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\obj\Debug\Fm2ndPaletteEditor.Service.csprojAssemblyReference.cache
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\obj\Debug\Fm2ndPaletteEditor.Service.Properties.Resources.resources
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\obj\Debug\Fm2ndPaletteEditor.Service.csproj.GenerateResource.cache
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\obj\Debug\Fm2ndPaletteEditor.Service.csproj.CoreCompileInputs.cache
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\obj\Debug\Fm2ndPaletteEditor.Service.exe
+J:\Projects\fm2ndpaletteeditor\fm2ndpaletteeditor Win7\Fm2ndPaletteEditor.Service\obj\Debug\Fm2ndPaletteEditor.Service.pdb

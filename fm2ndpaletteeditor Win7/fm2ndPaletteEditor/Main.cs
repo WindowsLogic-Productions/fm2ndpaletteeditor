@@ -1,5 +1,5 @@
 ﻿using ColorMine.ColorSpaces;
-//using Fm2ndPaletteEditor.Service;
+using Fm2ndPaletteEditor.Service;
 using ImageProcessor.Imaging.Quantizers;
 using System;
 using System.Drawing;
